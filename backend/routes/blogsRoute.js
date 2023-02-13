@@ -2,13 +2,20 @@ import Express from "express";
 import {
     createBlog,
     createNewTag,
+    deleteBlog,
+    getBlog,
     returnBlogsByDate,
     returnBlogsByTag,
-    returnTagNames
+    returnTagNames,
+    returnWriterBlogs,
+    updateBlog
 } from "../controllers/blogController.js";
 
 
 const router = Express.Router();
+
+// get blog
+router.get('/blog/:blogID', getBlog)
 
 // all the blogs
 router.get("/", returnBlogsByDate);
@@ -22,23 +29,14 @@ router.get("/tag/:tagName", returnBlogsByTag);
 // create a new tag
 router.post("/tag/newTag", createNewTag);
 
-// return famous writers
-router.get("/@", (req, res) => {
-    res.json({ mssg: `those are the famous writers` });
-});
+// blog by writerID
+router.get("/@:writerID/", returnWriterBlogs);
 
-// blog by writer
-router.get("/@:writer/", (req, res) => {
-    res.json({ mssg: `this is blogs written by ${req.params.writer}` });
-});
+// delete blog
+router.delete('/delete/:blogID', deleteBlog)
 
-// by blog name (could be canceled)
-router.get("/:blogName", (req, res) => {
-    res.json({
-        mssg: `this is the blog ${req.params.blogName}`,
-    });
-});
-
+// update blog
+router.put('/update/:blogID', updateBlog)
 
 
 router.post("/newBlog", createBlog);

@@ -7,10 +7,12 @@ const writerSchema = new Schema(
         username: {
             type: String,
             required: true,
+            unique:true
         },
         password: {
             type: String,
-            required:true
+            required: true,
+            select:false
         },
         firstName: {
             type: String,
@@ -22,7 +24,8 @@ const writerSchema = new Schema(
         },
         email: {
             type: String,
-            required:true
+            required: true,
+            unique:true
         },
         status: {
             type: String,

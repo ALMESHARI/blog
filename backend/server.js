@@ -1,7 +1,7 @@
 // in this project we will use ES6 statments to import the modules
 // for more check https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
 import  Express  from "express";
-import blogsRoute from './routes/blogs.js'
+import blogsRoute from './routes/blogsRoute.js'
 import writersRoute from './routes/writerRoute.js'
 import mongoose from "mongoose";
 import dotenv from "dotenv"
@@ -31,7 +31,7 @@ server.use((req, res, next) => {
 
 //routes
 server.use('/api/blogs', blogsRoute)
-server.use('/api/@' , writersRoute)
+server.use('/api/writers' , writersRoute)
 
 //main route
 server.get('/', (req, res) => {

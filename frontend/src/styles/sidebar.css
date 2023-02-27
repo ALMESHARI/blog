@@ -1,0 +1,79 @@
+#sidebar a{
+    color: rgb(164, 164, 164);
+    font-weight: 500;
+}
+
+#sidebar li:hover *{
+    color: rgb(232, 229, 229);
+}
+#sidebar *{
+    background-color: transparent;
+    transition: 0.1s;
+}
+#sidebar{
+    background-color: rgb(18, 17, 21);
+    position: absolute;
+    overflow:visible;
+}
+
+.micro-profile{
+display: flex;
+align-items: center;
+flex-direction: column;
+color:rgb(232, 229, 229);
+flex-wrap: nowrap;
+padding-top: 20px;
+}
+
+.micro-profile.closed h3{
+ visibility: hidden;
+ /* display: none; */
+ height: 0px;
+}
+.micro-profile.closed .personal-img-div{
+    height: 40px;
+    width: 40px;
+}
+.micro-profile h3{
+    color: rgb(101, 101, 101);
+    background-color: aquamarine;
+    font-size: small;
+    display: inline-block;
+white-space: nowrap;
+}
+
+.personal-img-div{
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    overflow: hidden;
+    border: solid 2px;
+    border-color: rgb(143, 144, 146);
+}
+.personal-img-div img{
+    height: 100%;
+    width: 100%;
+}
+
+#sidebar hr{
+    background-color: rgb(133, 133, 133);
+    height: 1px;
+    border-top: 0;
+    border-bottom: 0px;
+}
+
+@media (min-width:481px) {
+    #sidebar.ps-collapsed{
+        width: 0px !important;
+    }
+}
+
+.mobile-menu{
+color: rgb(174, 175, 176);
+position: absolute;
+top: 13px;
+left: 27px;
+cursor: pointer;
+width: 100px;
+z-index: 4;
+}

@@ -4,16 +4,15 @@
 }
 
 #sidebar li:hover *{
-    color: rgb(232, 229, 229);
+    color: white
 }
 #sidebar *{
     background-color: transparent;
     transition: 0.1s;
 }
 #sidebar{
-    background-color: rgb(18, 17, 21);
-    position: absolute;
-    overflow:visible;
+    background-color: rgb(18, 17, 21,1);
+    box-shadow: 1px 0px 8px 0px #000000;
 }
 
 .micro-profile{
@@ -72,8 +71,23 @@ white-space: nowrap;
 color: rgb(174, 175, 176);
 position: absolute;
 top: 13px;
-left: 27px;
+left: 22px;
 cursor: pointer;
-width: 100px;
+width: 35px;
+height: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 5px;
 z-index: 4;
+background-color:rgb(18, 17, 21); 
+}
+.mobile-menu:hover{
+    color: white;
+}
+
+@media screen and (max-width: 580px) {
+    #sidebar{
+            position: absolute;
+    }
 }

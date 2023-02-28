@@ -12,26 +12,26 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 // sidebar icon
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { useState, useRef} from "react";
+import { useState, useRef } from "react";
 
 function App() {
     const [Icon, setIcon] = useState(ArrowBackIosNewIcon);
-        const childRef = useRef();
+    const childRef = useRef();
 
     return (
         <div id="App" style={({ height: "100vh" }, { display: "flex" })}>
             <BrowserRouter>
+                <div
+                    className="mobile-menu"
+                    onClick={() => {
+                        childRef.current.collapse(setIcon);
+                    }}
+                >
+                    {<Icon />}
+                </div>
                 <SideBar ref={childRef} />
                 <div className="pages">
-                    <div
-                        className="mobile-menu"
-                        onClick={() => {
-                            childRef.current.collapse(setIcon)
-
-                        }}
-                    >
-                        {<Icon />}
-                    </div>
+                    <div className="search-bar"></div>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/Myblogs" element={<Myblogs />} />
@@ -44,9 +44,6 @@ function App() {
             </BrowserRouter>
         </div>
     );
-    
 }
-
-
 
 export default App;

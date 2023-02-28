@@ -1,29 +1,42 @@
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import CreateIcon from "@mui/icons-material/Create";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useState, useImperativeHandle, forwardRef } from "react";
 import { Link } from "react-router-dom";
+import useWindowDimensions from "../logic/WindowDimensions";
+
 const SideBar = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
-        collapse
+        collapse,
     }));
+    const { height, width } = useWindowDimensions();
     const { collapseSidebar } = useProSidebar();
     const [isOpen, setIsOpen] = useState(true);
     const menus = [
-        { name: "Explore", link: "Explore", icon: HomeOutlinedIcon },
+        { name: "Explore", link: "Explore", icon: ExploreOutlinedIcon },
         { name: "Write new", link: "WriteNew", icon: CreateIcon },
-        { name: "My Blogs", link: "MyBlogs", icon: CalendarTodayOutlinedIcon },
-        { name: "Profile", link: "Profile", icon: AccountCircleIcon },
-        { name: "Settings", link: "Settings", icon: HelpOutlineOutlinedIcon },
+        { name: "My Blogs", link: "MyBlogs", icon: DescriptionOutlinedIcon },
+        { name: "Profile", link: "Profile", icon: AccountCircleOutlinedIcon },
+        {
+            name: "Notifications",
+            link: "Notifications",
+            icon: NotificationsNoneOutlinedIcon,
+        },
+        { name: "Settings", link: "Settings", icon: SettingsOutlinedIcon },
     ];
     return (
-        <Sidebar id="sidebar" style={{ height: "100vh" }}>
+        <Sidebar
+            collapsedWidth={width < 580 ? "0px" : "80px"}
+            id="sidebar"
+            style={{ height: "100vh" }}
+        >
             {/* <MenuOutlinedIcon className="mobile-menu" /> */}
 
             <Menu>
@@ -44,6 +57,7 @@ const SideBar = forwardRef((props, ref) => {
                 </div>
 
                 <hr />
+                {/* for each menu item */}
                 {menus.map((menuItem) => (
                     <MenuItem
                         key={menuItem.link}

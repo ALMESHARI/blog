@@ -1,4 +1,10 @@
 @import "./styles/sidebar.css";
+@import "./styles/blogSummary.css";
+@import './styles/Explore.css';
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -8,6 +14,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     /* additions here*/
     height: 100vh;
+    position: absolute;
+    width: 100vw;
 }
 
 code {
@@ -18,14 +26,27 @@ code {
     width: 100%;
     height: 100vh;
     position: relative;
+    padding: 10px;
+    overflow: auto;
 }
+/* it might be a problem with justify center */
 .flexCenter{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
+    overflow-x: auto;
 }
 
 a{
     text-decoration: none;
+}
+
+.Explore{
+    /* max-width: 600px; */
+}
+
+img {
+    max-width: 500px;
 }

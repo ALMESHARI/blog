@@ -1,6 +1,7 @@
 @import "./styles/sidebar.css";
 @import "./styles/blogSummary.css";
 @import './styles/Explore.css';
+@import './styles/Editor.css';
 *{
     box-sizing: border-box;
     margin: 0;

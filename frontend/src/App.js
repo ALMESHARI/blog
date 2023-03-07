@@ -10,6 +10,8 @@ import WriteNew from "./pages/WriteNew";
 import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import Signup from "./pages/Signup";
+import Blog from "./pages/Blog";
 // sidebar icon
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useState, useRef } from "react";
@@ -39,6 +41,8 @@ function App() {
                         <Route path="/Explore" element={<Explore />} />
                         <Route path="/Profile" element={<Profile />} />
                         <Route path="/Settings" element={<Settings />} />
+                        <Route path="/Signup" element={<Signup />} />
+                        <Route path= "/Blog" element={<Blog />} />
                     </Routes>
                 </div>
             </BrowserRouter>

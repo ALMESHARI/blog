@@ -1,5 +1,10 @@
 const MyBlogs = () => {
-    return <div className="MyBlogs flexCenter">MyBlogs</div>;
+    return <div className="MyBlogs flexCenter">
+        <div className="dashboard">
+        hello wolrd
+        </div>
+    </div>;
 };
 
 export default MyBlogs;
+

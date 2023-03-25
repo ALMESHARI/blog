@@ -1,0 +1,33 @@
+                #theme-btn {
+                    height: 26px;
+                    min-width: 26px;
+                    border: var(--border);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    
+                }
+
+                #theme-btn:hover {
+                    transform: rotate(180deg);
+                    transition: 0.5s;
+                }
+
+                .theme-cir {
+                    height: 20px;
+                    width: 10px;
+                }
+
+                #theme-cir1 {
+                    border-bottom-left-radius: 150px;
+                    border-top-left-radius: 150px;
+                }
+
+                #theme-cir2 {
+                    border-bottom-right-radius: 150px;
+                    border-top-right-radius: 150px;
+                    background-color: white;
+
+                }

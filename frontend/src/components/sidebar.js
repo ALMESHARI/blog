@@ -12,7 +12,7 @@ import { useState, useImperativeHandle, forwardRef } from "react";
 import { Link } from "react-router-dom";
 import useWindowDimensions from "../logic/WindowDimensions";
 
-const SideBar = forwardRef((props, ref) => {
+const SideBar = forwardRef(({Icon,setIcon}, ref) => {
     useImperativeHandle(ref, () => ({
         collapse,
     }));
@@ -39,6 +39,14 @@ const SideBar = forwardRef((props, ref) => {
             style={{ height: "100vh" }}
         >
             {/* <MenuOutlinedIcon className="mobile-menu" /> */}
+            <div
+                className="desktop-menu"
+                onClick={() => {
+                    collapse(setIcon);
+                }}
+            >
+                {<Icon />}
+            </div>
 
             <Menu>
                 <MenuItem style={{ textAlign: "right" }}></MenuItem>

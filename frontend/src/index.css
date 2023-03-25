@@ -2,9 +2,14 @@
 @import "./styles/blogSummary.css";
 @import './styles/Explore.css';
 @import './styles/Editor.css';
+@import './styles/WriteNew.css';
+@import "./styles/up-bar.css";
+@import "./styles/theme-btn.css";
 *{
     box-sizing: border-box;
     margin: 0;
+    outline: none;
+    transition: 0.3s;
 }
 body {
     margin: 0;
@@ -13,29 +18,38 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* additions here*/
-    height: 100vh;
-    position: absolute;
-    width: 100vw;
+    position: relative;
+    background-color: var(--bg-secondary-color);
 }
+
+
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
 }
+
+.content{
+    width: 100%;
+}
 .pages{
     width: 100%;
-    height: 100vh;
+    height: fit-content;
     position: relative;
+    padding-top: 56px;
+    overflow: visible;
+    min-height: 100vh;
+}
+
+.pages > div{
     padding: 10px;
-    overflow: auto;
 }
 /* it might be a problem with justify center */
 .flexCenter{
     display: flex;
     /* justify-content: center; */
     align-items: center;
-    height: 100%;
+    height: fit-content;
     width: 100%;
     overflow-x: auto;
 }
@@ -51,3 +65,4 @@ a{
 img {
     max-width: 500px;
 }
+

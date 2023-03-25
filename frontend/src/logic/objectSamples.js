@@ -100,4 +100,4 @@ const recipe2 = {
 
 const blogsList = [blog, article, recipe, travelGuide,event,recipe2];
 
-export { blogsList };
+export { blogsList, writer };

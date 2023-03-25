@@ -1,0 +1,12 @@
+@import './GlobalVariables.css';
+
+.up-bar {
+    height: 56px;
+    /* width: 100%; */
+    position: fixed;
+    background-color: var(--bg-bar-color);
+    box-shadow: var(--box-shadow);
+    z-index: 1;
+    width: 100%;
+    border-bottom: var(--border);
+}

@@ -8,7 +8,7 @@ import hljs from "highlight.js";
 
 const modules = {
     syntax: {
-      highlight: text => hljs.highlightAuto(text).value
+        highlight: (text) => hljs.highlightAuto(text).value,
     },
     toolbar: [
         [{ font: [] }],
@@ -22,7 +22,6 @@ const modules = {
         ["link", "image", "video"],
         ["clean"],
     ],
-   
 };
 hljs.configure({
     // optionally configure hljs
@@ -31,7 +30,6 @@ hljs.configure({
 
 const Editor = () => {
     const [value, setValue] = useState("");
-    console.log(value);
     const content = ``;
 
     return (
@@ -42,6 +40,8 @@ const Editor = () => {
                 placeholder="Content goes here..."
                 bounds={`.editor-container`}
                 modules={modules}
+                sticky_toolbar={true}
+
                 // readOnly={true}
                 // value={content}
             />

@@ -1,0 +1,52 @@
+@import "./GlobalVariables.css";
+
+.WriteNew{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#title-input{
+background-color: var(--input-color);
+}
+
+
+.WriteNew .micro-writer {
+    height: 50px;
+}
+
+.WriteNew .writer-picture{
+    width: 50px;
+    height: 50px;
+}
+
+.writer-divider{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.writer-divider .writer-name{
+    font-size: var(--font-size1);
+    font-weight: 500;
+    color: var(--text-color1);
+}
+
+.WriteNew #tags-input{
+    height: 20px;
+    white-space: nowrap;
+    /* font-size: var(--font-size2); */
+    font-weight: 500;
+    color: rgb(42, 42, 42);
+    font-size: small;
+}
+
+.WriteNew .blog-date{
+    white-space: nowrap;
+}
+
+
+.WriterNew .blog-description{
+height: 100px;
+}

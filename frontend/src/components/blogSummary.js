@@ -10,7 +10,9 @@ const BlogSummary = ({ writer, blog }) => {
                     />
                     <h5 className="writer-name">{writer.name}</h5>
                 </div>
-                <h2 className="blog-title">{blog.title}</h2>
+                <div className="blog-title-div">
+                    <h2 className="blog-title">{blog.title}</h2>
+                </div>
                 <h4 className="blog-description">{blog.description}</h4>
                 <div className="blog-information">
                     <h5 className="blog-date">{blog.date}</h5>

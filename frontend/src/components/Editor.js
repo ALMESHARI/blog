@@ -5,12 +5,16 @@ import "react-quill/dist/quill.bubble.css";
 import "highlight.js/styles/monokai-sublime.css";
 import hljs from "highlight.js";
 // import "highlight.js"
+import React from "react";
+
+
+
 
 const modules = {
     syntax: {
         highlight: (text) => hljs.highlightAuto(text).value,
     },
-    toolbar: [
+    toolbar:{ container :[
         [{ font: [] }],
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
         ["bold", "italic", "underline", "strike"],
@@ -22,6 +26,8 @@ const modules = {
         ["link", "image", "video"],
         ["clean"],
     ],
+    
+},
 };
 hljs.configure({
     // optionally configure hljs
@@ -31,6 +37,7 @@ hljs.configure({
 const Editor = () => {
     const [value, setValue] = useState("");
     const content = ``;
+    console.log("editor")
 
     return (
         <div className="editor-container">

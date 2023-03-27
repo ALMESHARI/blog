@@ -1,6 +1,8 @@
-import ThemeBtn from "./theme-btn";
+import ThemeBtn from "../theme-btn";
+import React from "react";
 
 const UpBar = () => {
+
     return (
         <div className="up-bar" style={style}>
             <div style={{

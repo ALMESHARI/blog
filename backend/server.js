@@ -29,6 +29,21 @@ server.use((req, res, next) => {
     next()
 })
 
+// test uplaod image
+app.post("/image", upload.single("image"), (req, res, next) => {
+    var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
+        img: {
+            data: fs.readFileSync(
+                path.join(__dirname + "/uploads/" + req.file.filename)
+            ),
+            contentType: "image/png",
+        },
+    };
+    
+});
+
 //routes
 server.use('/api/blogs', blogsRoute)
 server.use('/api/writers' , writersRoute)

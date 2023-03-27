@@ -1,4 +1,5 @@
 const BlogSummary = ({ writer, blog }) => {
+
     return (
         <div className="blog-summary">
             <div className="blog-review">

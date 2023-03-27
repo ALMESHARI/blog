@@ -1,7 +1,8 @@
 import BlogSummary from "../components/blogSummary";
 import {blogsList} from "../logic/objectSamples";
-
+import React from "react";
 const Explore = () => {
+        console.log("App explore");
     return (
         <div className="Explore flexCenter">
             {blogsList.map((blog, i) => {
@@ -14,4 +15,4 @@ const Explore = () => {
     );
 };
 
-export default Explore;
+export default React.memo(Explore);

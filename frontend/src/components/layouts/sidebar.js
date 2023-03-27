@@ -10,7 +10,8 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useState, useImperativeHandle, forwardRef } from "react";
 import { Link } from "react-router-dom";
-import useWindowDimensions from "../logic/WindowDimensions";
+import useWindowDimensions from "../../logic/WindowDimensions";
+
 
 const SideBar = forwardRef(({Icon,setIcon}, ref) => {
     useImperativeHandle(ref, () => ({
@@ -38,7 +39,6 @@ const SideBar = forwardRef(({Icon,setIcon}, ref) => {
             id="sidebar"
             style={{ height: "100vh" }}
         >
-            {/* <MenuOutlinedIcon className="mobile-menu" /> */}
             <div
                 className="desktop-menu"
                 onClick={() => {
@@ -91,5 +91,7 @@ const SideBar = forwardRef(({Icon,setIcon}, ref) => {
         }
     }
 });
+
+
 
 export default SideBar;

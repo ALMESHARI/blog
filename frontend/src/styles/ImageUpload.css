@@ -1,0 +1,90 @@
+.image-upload {
+    border: var(--border);
+    border-radius: 15px;
+    /* padding: 1rem; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    align-content: center;
+    overflow: hidden;
+}
+
+.upload-label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.upload-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #ccc;
+}
+
+.upload-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.upload-text {
+    font-size: 1
+}
+
+.image-viewer{
+    min-height: 200px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-input {
+    opacity: 0.0;
+    background-color: aqua;
+
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+
+    /* IE 5-7 */
+    filter: alpha(opacity=0);
+
+    /* Netscape or and older firefox browsers */
+    -moz-opacity: 0.0;
+
+    /* older Safari browsers */
+    -khtml-opacity: 0.0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 40px;
+    width: 100%;
+}
+
+.upload-button{
+margin: 0;
+max-width: unset;
+border: 0;
+border-radius: 0;
+background-color: #33b249;
+color: white;
+}
+
+.upload-button:hover:enabled {
+    filter: brightness(110%);
+}

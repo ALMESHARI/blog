@@ -2,6 +2,7 @@ import Editor from "../components/Editor";
 import { getDate } from "../logic/date";
 import { useState } from "react";
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
+import ImageUpload from "../components/imageUploader";
 
 const WriteNew = ({ writer }) => {
     const date = getDate();
@@ -53,6 +54,8 @@ const WriteNew = ({ writer }) => {
                 onChange={(e) => inputHandler(e, setDescription)}
             />
 
+            <ImageUpload />
+
             <Editor />
 
             <div
@@ -65,15 +68,22 @@ const WriteNew = ({ writer }) => {
             >
                 <button id="save-btn" className="gb-button-style">
                     SAVE
-                        <ArrowForwardIosOutlinedIcon />
+                    <ArrowForwardIosOutlinedIcon />
                 </button>
                 <button id="publish-btn" className="gb-button-style">
                     SAVE & PUBLISH
-                        <ArrowForwardIosOutlinedIcon />
+                    <ArrowForwardIosOutlinedIcon />
                 </button>
             </div>
         </div>
     );
 };
+
+
+
+
+
+
+ 
 
 export default WriteNew;

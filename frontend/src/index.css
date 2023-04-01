@@ -5,6 +5,7 @@
 @import './styles/WriteNew.css';
 @import "./styles/up-bar.css";
 @import "./styles/theme-btn.css";
+@import "./styles/GlobalVariables.css";
 *{
     box-sizing: border-box;
     margin: 0;
@@ -87,3 +88,17 @@ img {
         transform: rotate(360deg);
     }
 }
+
+/* placeholder style */
+
+/* ::-webkit-input-placeholder {
+    color: var(--text-color-grey);
+}
+
+:-ms-input-placeholder {
+    color: var(--text-color-grey);
+}
+
+::placeholder {
+    color: var(--text-color-grey);
+} */

@@ -70,7 +70,7 @@ async function createWriter(req, res) {
 // return the famous writers
 const returnTopWriters = async (req, res) => {
     // inorder to make sure to return only the users who write at least one blog
-    // find onse with points greater than 0
+    // find those with points greater than 0
     const writers = await Writer.find({ points: { $gt: 0 } }).sort({
         points: -1,
     });

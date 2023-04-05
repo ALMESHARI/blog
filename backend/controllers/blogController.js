@@ -62,7 +62,6 @@ const returnBlogsByTag = async (req, res) => {
         res.status(200).json(blogs);
     }
 };
-
 // return blogs of given writerID
 const returnWriterBlogs = async (req, res) => {
     try {

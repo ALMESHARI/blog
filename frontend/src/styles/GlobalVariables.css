@@ -57,6 +57,7 @@ body[data-theme='dark'] {
     font-size: var(--font-size1);
     font-family: var(--font-family);
     resize: none;
+    color: var(--text-color1);
 }
 
 .gb-button-style{

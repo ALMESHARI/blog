@@ -1,5 +1,7 @@
 import BlogSummary from "../components/blogSummary";
-import {blogsList} from "../logic/objectSamples";
+import { blogsList } from "../logic/objectSamples";
+import '../styles/pages/Explore.css';
+
 import React from "react";
 const Explore = () => {
         console.log("App explore");

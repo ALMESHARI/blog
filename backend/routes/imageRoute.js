@@ -8,6 +8,6 @@ const upload = multer();
 
 router.post("/upload", upload.single("image"), uploadImage);
 
-router.get("/get/:id", getImage);
+router.get("/get/:id/:type", getImage);
 
 export default router

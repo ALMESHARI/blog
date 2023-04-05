@@ -1,5 +1,6 @@
 import ThemeBtn from "../theme-btn";
 import React from "react";
+import "../../styles/layouts/up-bar.css";
 
 const UpBar = () => {
 

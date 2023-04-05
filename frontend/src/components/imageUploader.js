@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/ImageUpload.css";
+import "../styles/components/ImageUpload.css";
 
 
 // if changed is true then the button is enabled
@@ -114,7 +114,6 @@ function ImageUpload() {
             <button disabled={!changed || !file}
                 onClick={handleSubmit}
                 className="upload-button gb-button-style"
-                // style={file?{opacity:1}:{opacity:0.5}}
             >
                 {!changed && file ? "UPLOADED": "UPLOAD"}
             </button>

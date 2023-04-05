@@ -1,5 +1,3 @@
-@import "./GlobalVariables.css";
-
 .WriteNew{
     display: flex;
     flex-direction: column;
@@ -36,9 +34,7 @@ background-color: var(--input-color);
 .WriteNew #tags-input{
     height: 20px;
     white-space: nowrap;
-    /* font-size: var(--font-size2); */
     font-weight: 500;
-    color: rgb(42, 42, 42);
     font-size: small;
 }
 
@@ -50,7 +46,3 @@ background-color: var(--input-color);
 .WriterNew .blog-description{
 height: 100px;
 }
-
-/* .WriteNew .pages{
-    overflow: visible;
-} */

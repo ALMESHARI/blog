@@ -3,6 +3,7 @@ import { getDate } from "../logic/date";
 import { useState } from "react";
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import ImageUpload from "../components/imageUploader";
+import "../styles/pages/WriteNew.css";
 
 const WriteNew = ({ writer }) => {
     const date = getDate();

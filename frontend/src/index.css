@@ -1,11 +1,5 @@
-@import "./styles/sidebar.css";
-@import "./styles/blogSummary.css";
-@import './styles/Explore.css';
-@import './styles/Editor.css';
-@import './styles/WriteNew.css';
-@import "./styles/up-bar.css";
-@import "./styles/theme-btn.css";
 @import "./styles/GlobalVariables.css";
+
 *{
     box-sizing: border-box;
     margin: 0;
@@ -57,10 +51,6 @@ code {
 
 a{
     text-decoration: none;
-}
-
-.Explore {
-    
 }
 
 img {

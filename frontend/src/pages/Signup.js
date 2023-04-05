@@ -1,3 +1,4 @@
+import "../styles/pages/Signup.css";
 const Signup = () => {
     return (
         <div className="Signup">
@@ -7,13 +8,16 @@ const Signup = () => {
                 <input type="text" placeholder="Email" />
                 <input type="password" placeholder="Password" />
                 <input type="password" placeholder="Confirm Password" />
-                <button onclick={() => {
-                    console.log("Signup");
-                
-                }}>Signup</button>
+                <button
+                    onclick={() => {
+                        console.log("Signup");
+                    }}
+                >
+                    Signup
+                </button>
             </form>
         </div>
     );
-}
+};
 
 export default Signup;

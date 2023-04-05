@@ -1,5 +1,6 @@
-const ThemeBtn = () => {
+import "../styles/components/theme-btn.css";
 
+const ThemeBtn = () => {
     const themeBtnFunction = () => {
         if (document.body.hasAttribute("data-theme")) {
             document.body.removeAttribute("data-theme");

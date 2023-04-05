@@ -1,4 +1,9 @@
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { useState, useImperativeHandle, forwardRef } from "react";
+import { Link } from "react-router-dom";
+import useWindowDimensions from "../../logic/WindowDimensions";
+import "../../styles/layouts/sidebar.css";
+// import icons
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -8,9 +13,6 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { useState, useImperativeHandle, forwardRef } from "react";
-import { Link } from "react-router-dom";
-import useWindowDimensions from "../../logic/WindowDimensions";
 
 
 const SideBar = forwardRef(({Icon,setIcon}, ref) => {

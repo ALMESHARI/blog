@@ -32,3 +32,20 @@ color: var(--text-color1);
     color: var(--text-color-grey)!important;
 }
 
+
+
+.ql-tooltip.ql-editing {
+    /* z-index: ; */
+    left: 0 !important;
+    bottom: 0 !important;
+    top: unset !important;
+        display: flex;
+        justify-content: center;
+        background: var(--input-color);
+        position: absolute !important;
+        transform: unset !important;
+}
+
+.ql-tooltip.ql-hidden {
+    display: none !important;
+}

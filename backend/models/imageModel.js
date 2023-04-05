@@ -9,10 +9,12 @@ const imageSchema = new Schema({
     medium: {
         data: Buffer,
         contentType: String,
+        require: false,
     },
     low: {
         data: Buffer,
         contentType: String,
+        require: false,
     },
 });
 

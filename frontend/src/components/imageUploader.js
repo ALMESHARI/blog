@@ -64,7 +64,7 @@ function ImageUpload() {
             return;
         }
         formData.append("image", file);
-        const response = await fetch("/api/images/upload", {
+        const response = await fetch("/api/images/upload/main", {
             method: "POST",
             body: formData,
         });

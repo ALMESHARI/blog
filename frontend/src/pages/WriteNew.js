@@ -10,6 +10,9 @@ const WriteNew = ({ writer }) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [tags, setTags] = useState("");
+    const [error, setError] = useState("no error");
+    const [loading, setLoading] = useState(false);
+
 
     const inputHandler = (e,hook) => {
         hook(e.target.value)

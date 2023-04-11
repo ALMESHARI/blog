@@ -4,26 +4,27 @@ const uploadImage = async (
     setLoading = null,
     apiURI
 ) => {
-    console.log(apiURI);
-    // const formData = new FormData();
-    // if (!file) {
-    //     setError("Please select an image file");
-    //     return;
-    // }
-    // formData.append("image", file);
     try {
-        // setLoading(true);
+        setError(null);
+        setLoading(true);
+        let data;
+  await new Promise((resolve) => setTimeout(resolve, 18000));
         const res = await fetch(apiURI, {
             method: "POST",
             body: formData,
+        }).then( async (res) => {
+            if (res.ok) {
+                data = await res.json();
+                setLoading(false);
+            } else {
+                setLoading(false);
+                throw "image upload failed";
+            }
         });
-        const data = await res.json();
-        const url = data.url;
-        // setLoading(false);
-        return url;
+        return data.url;
     } catch (err) {
-        // setError(err);
-        // setLoading(false);
+        setError(err);
+        setLoading(false);
     }
 };
 

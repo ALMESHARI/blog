@@ -1,0 +1,32 @@
+.loading-indicator{
+    display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        height: 30px
+}
+
+.loading-indicator .upload-message {
+    color: var(--text-color-grey);
+}
+
+.loader {
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--text-color-grey);
+    border-bottom: 2px solid var(--text-color-grey);
+    border-radius: 50%;
+    width: 1.2em;
+    height: 1.2em;
+    animation: spin 0.8s linear infinite;
+    margin: 0 13px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -14,14 +14,12 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
-
-const SideBar = forwardRef(({Icon,setIcon}, ref) => {
+const SideBar = forwardRef(({ Icon, setIcon , isOpen, setIsOpen }, ref) => {
     useImperativeHandle(ref, () => ({
         collapse,
     }));
     const { height, width } = useWindowDimensions();
     const { collapseSidebar } = useProSidebar();
-    const [isOpen, setIsOpen] = useState(true);
     const menus = [
         { name: "Explore", link: "Explore", icon: ExploreOutlinedIcon },
         { name: "Write new", link: "WriteNew", icon: CreateIcon },
@@ -33,54 +31,58 @@ const SideBar = forwardRef(({Icon,setIcon}, ref) => {
             icon: NotificationsNoneOutlinedIcon,
         },
         { name: "Settings", link: "Settings", icon: SettingsOutlinedIcon },
-        {name:"Sign up" , link:"Signup" , icon:HelpOutlineOutlinedIcon},
+        { name: "Sign up", link: "Signup", icon: HelpOutlineOutlinedIcon },
     ];
+    console.log();
     return (
-        <Sidebar
-            collapsedWidth={width < 580 ? "0px" : "80px"}
-            id="sidebar"
-            style={{ height: "100vh" }}
-        >
-            <div
-                className="desktop-menu"
-                onClick={() => {
-                    collapse(setIcon);
-                }}
+        
+
+            <Sidebar
+                collapsedWidth={width < 580 ? "0px" : "80px"}
+                id="sidebar"
+                defaultCollapsed={true}
+                style={{ height: "100vh" }}
             >
-                {<Icon />}
-            </div>
-
-            <Menu>
-                <MenuItem style={{ textAlign: "right" }}></MenuItem>
-
                 <div
-                    className={
-                        isOpen ? "micro-profile" : "micro-profile closed"
-                    }
+                    className="desktop-menu"
+                    onClick={() => {
+                        collapse(setIcon);
+                    }}
                 >
-                    <div className="personal-img-div">
-                        <img
-                            src="https://lumiere-a.akamaihd.net/v1/images/character_themuppets_kermit_b77a431b.jpeg"
-                            alt=""
-                        />
-                    </div>
-                    <h3 className="ps-menuitem-root">RIDHA ALMESHARI</h3>
+                    {<Icon />}
                 </div>
 
-                <hr />
-                {/* for each menu item */}
-                {menus.map((menuItem) => (
-                    <MenuItem
-                        key={menuItem.link}
-                        component={<Link to={menuItem.link} />}
-                        className="createItem"
-                        icon={<menuItem.icon />}
+                <Menu>
+                    <MenuItem style={{ textAlign: "right" }}></MenuItem>
+
+                    <div
+                        className={
+                            isOpen ? "micro-profile" : "micro-profile closed"
+                        }
                     >
-                        {menuItem.name}
-                    </MenuItem>
-                ))}
-            </Menu>
-        </Sidebar>
+                        <div className="personal-img-div">
+                            <img
+                                src="https://lumiere-a.akamaihd.net/v1/images/character_themuppets_kermit_b77a431b.jpeg"
+                                alt=""
+                            />
+                        </div>
+                        <h3 className="ps-menuitem-root">RIDHA ALMESHARI</h3>
+                    </div>
+
+                    <hr />
+                    {/* for each menu item */}
+                    {menus.map((menuItem) => (
+                        <MenuItem
+                            key={menuItem.link}
+                            component={<Link to={menuItem.link} />}
+                            className="createItem"
+                            icon={<menuItem.icon />}
+                        >
+                            {menuItem.name}
+                        </MenuItem>
+                    ))}
+                </Menu>
+            </Sidebar>
     );
     function collapse(updateIcon) {
         collapseSidebar();
@@ -93,7 +95,5 @@ const SideBar = forwardRef(({Icon,setIcon}, ref) => {
         }
     }
 });
-
-
 
 export default SideBar;

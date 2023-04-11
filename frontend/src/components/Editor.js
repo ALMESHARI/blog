@@ -8,6 +8,42 @@ import hljs from "highlight.js";
 import React from "react";
 import uploadImage from "../services/uploadImage";
 
+const CustomDiv = Quill.import("blots/block/embed");
+
+// to allow adding a div image placeholder into the editor
+class DivBlot extends CustomDiv {
+    static blotName = "div";
+    static tagName = "div";
+    static defaultClassName = "image-placeholder";
+    static defaultContent = `<div class="loader"></div>`;
+
+    static create(value) {
+        const node = super.create(value);
+        node.setAttribute("class", this.defaultClassName);
+        node.innerHTML = this.defaultContent;
+        return node;
+    }
+
+    static value(node) {
+        return {
+            class: node.getAttribute("class"),
+        };
+    }
+}
+Quill.register(DivBlot);
+
+function handleDeleteDivs(url) {
+    const quill = quillRef.current.getEditor();
+    const div = quill.container.querySelector(".image-placeholder");
+    if (!div) return;
+    let blot = Quill.find(div);
+
+    const index = quill.getIndex(blot);
+    quill.deleteText(index, 1);
+    quill.insertEmbed(index, "image", url);
+    quill.setSelection(index + 1);
+}
+
 const imageHandler = async () => {
     const quill = quillRef.current.getEditor();
     const input = document.createElement("input");
@@ -21,29 +57,29 @@ const imageHandler = async () => {
         const formData = new FormData();
 
         formData.append("image", file);
+        let range = quill.getSelection();
+        let delta = quill.insertEmbed(
+            range.index,
+            "div",
+            "<div>hellow eold</div>",
+            Quill.sources.USER
+        );
 
-        // create a temporary placeholder div for the image
-        const placeholder = document.createElement("div");
-        placeholder.classList.add("image-placeholder");
-        // quill.root.appendChild(placeholder);
-        // upload the image using the uploadFunction
+        quill.setSelection(range.index + 1);
+
         return await uploadImage(
             formData,
-            null,
-            null,
+            setError,
+            setLoading,
             "/api/images/upload/content"
         )
             .then((url) => {
                 // remove the placeholder div and insert the uploaded image
-                placeholder.remove();
-                const range = quill.getSelection();
-                quill.insertEmbed(range.index, "image", url );
-                quill.setSelection(range.index + 1);
-                return url;
+                handleDeleteDivs(url);
             })
             .catch((error) => {
                 // remove the placeholder div and show an error message
-                placeholder.remove();
+                handleDeleteDivs();
                 console.error(error);
             });
     };
@@ -78,17 +114,28 @@ hljs.configure({
     languages: ["javascript", "ruby", "python"],
 });
 let quillRef = null;
+let [error, setError] = [null, null];
+let [loading, setLoading] = [null, null];
 
 const Editor = () => {
     const [content, setContent] = useState("");
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    [error, setError] = useState("");
+    [loading, setLoading] = useState(false);
+    console.log(content);
 
     quillRef = React.useRef(null);
 
     return (
         <div className="editor-container">
-            <div className="editor-status"></div>
+            <div className="editor-status">
+                {error && <div className="error">{error}</div>}
+                {loading && (
+                    <div className="loading-indicator">
+                        <p className="upload-message">Uploading content</p>
+                        <div className="loader"></div>
+                    </div>
+                )}
+            </div>
             <ReactQuill
                 ref={quillRef}
                 theme="snow"

@@ -44,6 +44,15 @@ body[data-theme='dark'] {
     --tag-highlight: rgb(207, 207, 207);
     /* shadows */
     --box-shadow: 5px 1px 13px -9px black;
+    
+}
+.glass-background{
+    /* From https://css.glass */
+        background: rgba(0, 0, 0, 0.13);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(2.2px);
+        -webkit-backdrop-filter: blur(2.2px);
 }
 
 .gb-input-style {

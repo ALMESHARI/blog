@@ -23,14 +23,17 @@ const getBlog = async (req, res) => {
 
 // create a new blog
 const createBlog = async (req, res) => {
-    const { title, description, body, writerID, tag } = req.body;
+    const { title, description, body, writerID, tag, mainImage, status, publishDate } = req.body;
     try {
         const blog = await Blog.create({
             title,
             description,
             body,
+            mainImage,
             tag,
             writerID,
+            status,
+            publishDate,
         });
         res.status(200).json(blog);
     } catch (error) {

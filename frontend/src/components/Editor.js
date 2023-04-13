@@ -7,6 +7,7 @@ import "../styles/components/Editor.css";
 import hljs from "highlight.js";
 import React from "react";
 import uploadImage from "../services/uploadImage";
+import uploadImage2 from "../services/uploadImage";
 
 const CustomDiv = Quill.import("blots/block/embed");
 
@@ -32,6 +33,7 @@ class DivBlot extends CustomDiv {
 }
 Quill.register(DivBlot);
 
+// problem: when multiple images are uploaded, the order of the images is not the same as the order of the divs
 function handleDeleteDivs(url) {
     const quill = quillRef.current.getEditor();
     const div = quill.container.querySelector(".image-placeholder");
@@ -40,8 +42,10 @@ function handleDeleteDivs(url) {
 
     const index = quill.getIndex(blot);
     quill.deleteText(index, 1);
-    quill.insertEmbed(index, "image", url);
-    quill.setSelection(index + 1);
+    if (url) {
+        quill.insertEmbed(index, "image", url);
+        quill.setSelection(index + 1);
+    }
 }
 
 const imageHandler = async () => {
@@ -54,34 +58,34 @@ const imageHandler = async () => {
 
     input.onchange = async () => {
         const file = input.files[0];
-        const formData = new FormData();
-
-        formData.append("image", file);
+        if (!file.type.startsWith("image/")) {
+            alert("Please select an image file");
+            return;
+        }
         let range = quill.getSelection();
         let delta = quill.insertEmbed(
             range.index,
             "div",
-            "<div>hellow eold</div>",
+            "<div></div>",
             Quill.sources.USER
         );
 
         quill.setSelection(range.index + 1);
 
-        return await uploadImage(
-            formData,
+        let uri = await uploadImage2({
+            file,
             setError,
-            setLoading,
-            "/api/images/upload/content"
-        )
-            .then((url) => {
-                // remove the placeholder div and insert the uploaded image
-                handleDeleteDivs(url);
-            })
-            .catch((error) => {
-                // remove the placeholder div and show an error message
-                handleDeleteDivs();
-                console.error(error);
-            });
+            setIsLoading: setLoading,
+            apiURI: "/api/images/upload/content",
+        });
+        if (!error) {
+            // remove the placeholder div and insert the uploaded image
+            handleDeleteDivs(uri);
+        } else {
+            // remove the placeholder div and show an error message
+            handleDeleteDivs();
+            console.error(error);
+        }
     };
 };
 
@@ -117,11 +121,9 @@ let quillRef = null;
 let [error, setError] = [null, null];
 let [loading, setLoading] = [null, null];
 
-const Editor = () => {
-    const [content, setContent] = useState("");
+const Editor = ({ setContent }) => {
     [error, setError] = useState("");
     [loading, setLoading] = useState(false);
-    console.log(content);
 
     quillRef = React.useRef(null);
 
@@ -144,9 +146,6 @@ const Editor = () => {
                 bounds={`.editor-container`}
                 modules={modules}
                 sticky_toolbar={true}
-
-                // readOnly={true}
-                // value={content}
             />
         </div>
     );

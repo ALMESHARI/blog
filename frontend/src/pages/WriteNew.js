@@ -1,23 +1,37 @@
 import Editor from "../components/Editor";
 import { getDate } from "../logic/date";
 import { useState } from "react";
-import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
+import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import ImageUpload from "../components/imageUploader";
 import "../styles/pages/WriteNew.css";
+import uploadBlog from "../services/uploadBlog";
 
 const WriteNew = ({ writer }) => {
     const date = getDate();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [tags, setTags] = useState("");
-    const [error, setError] = useState("no error");
+    const [tag, setTag] = useState("");
+    const [content, setContent] = useState("");
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [mainImageURL, setMainImageURL] = useState(null);
 
+    const inputHandler = (e, hook) => {
+        hook(e.target.value);
+        console.log(e.target.value);
+    };
+    console.log(content);
 
-    const inputHandler = (e,hook) => {
-        hook(e.target.value)
-        console.log(e.target.value)
+    if (error) {
+        notifyError(error);
     }
+
+    const notifyError = (error) => {
+        alert(error);
+    };
+
+    console.log("render");
+
     return (
         <div className="WriteNew">
             <div className="micro-writer">
@@ -34,8 +48,8 @@ const WriteNew = ({ writer }) => {
                             id="tags-input"
                             className="gb-input-style"
                             type="text"
-                            placeholder="insert tags e.g #tag1 #tag2"
-                            onChange={(e) => inputHandler(e, setTags)}
+                            placeholder="insert tag"
+                            onChange={(e) => inputHandler(e, setTag)}
                         />
                     </div>
                 </div>
@@ -58,9 +72,14 @@ const WriteNew = ({ writer }) => {
                 onChange={(e) => inputHandler(e, setDescription)}
             />
 
-            <ImageUpload />
+            <ImageUpload
+                setMainImageURL={setMainImageURL}
+                error= {error}
+                setError={setError}
+                setLoading={setLoading}
+            />
 
-            <Editor />
+            <Editor setContent={setContent} />
 
             <div
                 className="writenew-buttons"
@@ -74,7 +93,41 @@ const WriteNew = ({ writer }) => {
                     SAVE
                     <ArrowForwardIosOutlinedIcon />
                 </button>
-                <button id="publish-btn" className="gb-button-style">
+                <button
+                    id="publish-btn"
+                    className="gb-button-style"
+                    onClick={() => {
+                        if (!title || !description || !content) {
+                            notifyError("Please fill all the fields");
+                        } else if (!mainImageURL) {
+                            notifyError("Please upload a main image");
+                        } else {
+                            if (loading) {
+                                notifyError(
+                                    "Please wait for content to be uploaded"
+                                );
+                            } else {
+                                let data = {
+                                    title,
+                                    description,
+                                    tag,
+                                    body: content,
+                                    mainImage: mainImageURL,
+                                    writerID: writer.id,
+                                    status: "published",
+                                    publishDate: new Date(),
+                                };
+                                let url = "api/blogs/newBlog";
+                                uploadBlog({
+                                    url,
+                                    data,
+                                    setLoading,
+                                    setError,
+                                });
+                            }
+                        }
+                    }}
+                >
                     SAVE & PUBLISH
                     <ArrowForwardIosOutlinedIcon />
                 </button>
@@ -82,12 +135,4 @@ const WriteNew = ({ writer }) => {
         </div>
     );
 };
-
-
-
-
-
-
- 
-
 export default WriteNew;

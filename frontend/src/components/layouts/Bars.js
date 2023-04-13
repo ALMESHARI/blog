@@ -19,7 +19,7 @@ const Bars = () => {
                 <div
                     className="glass-background"
                     style={{
-                        position: "absolute",
+                        position: "fixed",
                         backgroundColor: "rgba(0,0,0,0.3)",
                         zIndex: "3",
                         width: "100vw",

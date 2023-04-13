@@ -9,7 +9,7 @@ const Signup = () => {
                 <input type="password" placeholder="Password" />
                 <input type="password" placeholder="Confirm Password" />
                 <button
-                    onclick={() => {
+                    onClick={() => {
                         console.log("Signup");
                     }}
                 >

@@ -37,7 +37,7 @@ function App() {
                         <Route path="/Profile" element={<Profile />} />
                         <Route path="/Settings" element={<Settings />} />
                         <Route path="/Signup" element={<Signup />} />
-                        <Route path="/Blog" element={<Blog />} />
+                        <Route path="/Blog/:id" element={<Blog />} />
                     </Routes>
                     <Footer />
                 </div>

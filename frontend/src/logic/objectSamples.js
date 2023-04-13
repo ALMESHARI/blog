@@ -1,6 +1,7 @@
 const writer = {
     name: "Ridha almeshari",
     picture: "https://i.ytimg.com/vi/rRZ-IxZ46ng/sddefault.jpg",
+    id: "6436eca556690801e7defdea",
 };
 
 const blog = {

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import "../styles/components/ImageUpload.css";
-
+import uploadImage2 from "../services/uploadImage";
 
 // if changed is true then the button is enabled
 // if it is not changed then it should not allows to reupload the image
 
-function ImageUpload() {
+function ImageUpload({ setMainImageURL,error, setError, setLoading }) {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [changed, setChanged] = useState(true);
 
     const handleFileSelect = (selectedFile) => {
         if (!selectedFile) {
-        
-            return;}
+            return;
+        }
         if (!selectedFile.type.startsWith("image/")) {
             alert("Please select an image file");
             return;
@@ -54,23 +54,41 @@ function ImageUpload() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!changed) return;
-        submitting()
-    };
-
-    const submitting = async () => {
-        const formData = new FormData();
         if (!file) {
             alert("Please select an image file");
             return;
         }
-        formData.append("image", file);
-        const response = await fetch("/api/images/upload/main", {
-            method: "POST",
-            body: formData,
+        let url =  await uploadImage2({
+            file,
+            setIsLoading: setLoading,
+            apiURI: "/api/images/upload/main",
+            setError,
         });
-        const data = await response.json();
-        setChanged(false); // disable the button until changes are made
-        console.log(data.url);
+        if (!error) {
+            setChanged(false);
+            setMainImageURL(url);
+        }
+        
+    };
+
+    const submitting = async (file) => {
+        const formData = new FormData();
+
+        setLoading(true);
+        try {
+            formData.append("image", file);
+            const response = await fetch("/api/images/upload/main", {
+                method: "POST",
+                body: formData,
+            });
+            const data = await response.json();
+            setLoading(false);
+            setMainImageURL(data.url);
+            setChanged(false);
+        } catch (err) {
+            setError(err);
+        }
+        // disable the button until changes are made
     };
 
     return (
@@ -110,12 +128,13 @@ function ImageUpload() {
                     />
                 </form>
             </div>
-            
-            <button disabled={!changed || !file}
+
+            <button
+                disabled={!changed || !file}
                 onClick={handleSubmit}
                 className="upload-button gb-button-style"
             >
-                {!changed && file ? "UPLOADED": "UPLOAD"}
+                {!changed && file ? "UPLOADED" : "UPLOAD"}
             </button>
         </div>
     );

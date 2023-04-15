@@ -10,7 +10,8 @@ const UpBar = () => {
                 width: "26px",
                 height: "26px",
             }}></div>
-            <h3><i><span style={{
+            <h3 style={{color:"unset"
+            }}><i><span style={{
                 color: "grey",
                 textDecoration: "italic",
             }}>M</span></i>odawan</h3>
@@ -27,7 +28,7 @@ const style = {
         alignItems: "center",
         backgroundColor: "var(--bg-bar-color)",
         color: "white",
-        padding: "22px",
+    padding: "22px",
 }
 
 export default UpBar;

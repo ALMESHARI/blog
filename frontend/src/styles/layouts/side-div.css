@@ -1,0 +1,23 @@
+.side-div{
+    flex-grow: 1;
+    height: fit-content;
+    position: sticky;
+    top: 56px;
+    min-width: 320px;
+    max-width: 320px;
+    display: flex;
+    border: var(--border);
+    min-height: calc(100vh - 100px);
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 15px;
+    align-items: center;
+    background-color: var(--input-color);
+    
+}
+
+@media screen and (max-width: 1150px) {
+    .side-div{
+        display: none;
+    }
+}

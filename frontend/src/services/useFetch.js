@@ -10,7 +10,6 @@ const useFetch = (url) => {
         async function fetchData() {
             // recieve headers from server
             try {
-                await new Promise((r) => setTimeout(r, 5000));
                 const res = await fetch(url, { signal: abortCont.signal });
                 // recieve data from server
                 const data = await res.json();

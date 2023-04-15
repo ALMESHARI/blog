@@ -10,9 +10,10 @@
     position: sticky;
     top: 56px;
     right: 0;
-background-color: var(--input-color);
 z-index: 1;
     border-radius: 5px;
+    border: var(--border);
+    text-align: center;
 }
 
 .ql-container {
@@ -20,8 +21,13 @@ z-index: 1;
 }
 
 /* icons  */
-.ql-snow .ql-picker {
-}
+/* .ql-snow .ql-stroke , .ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+    stroke: #757578!important;
+    /* color: rgb(57, 136, 136) !important; */
+    fill: rgba(0, 0, 0, 0);
+ */
+
 
 .ql-editor p{
 color: var(--text-color1);

@@ -1,5 +1,7 @@
 .Explore{
-    /* justify-content: center; */
-    flex-direction: column;
+    justify-content: center;
     gap: 10px;
+    flex-wrap: nowrap;
+    min-height: calc(100vh - 100px);
+    display: flex;
 }

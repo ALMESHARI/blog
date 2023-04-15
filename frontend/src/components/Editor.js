@@ -7,20 +7,21 @@ import "../styles/components/Editor.css";
 import hljs from "highlight.js";
 import React from "react";
 import uploadImage from "../services/uploadImage";
-import uploadImage2 from "../services/uploadImage";
 
 const CustomDiv = Quill.import("blots/block/embed");
 
 // to allow adding a div image placeholder into the editor
 class DivBlot extends CustomDiv {
-    static blotName = "div";
-    static tagName = "div";
+    static blotName = "CustomDiv";
+    static tagName = "CustomDiv";
     static defaultClassName = "image-placeholder";
     static defaultContent = `<div class="loader"></div>`;
 
     static create(value) {
         const node = super.create(value);
+        console.log(value);
         node.setAttribute("class", this.defaultClassName);
+        node.setAttribute("contenteditable", false); // add this line
         node.innerHTML = this.defaultContent;
         return node;
     }
@@ -32,6 +33,40 @@ class DivBlot extends CustomDiv {
     }
 }
 Quill.register(DivBlot);
+
+// words counter
+class Counter {
+    constructor(quill, options) {
+        this.quill = quill;
+        this.options = options;
+        // this.container = document.querySelector(options.container);
+        quill.on("text-change", this.update.bind(this));
+        this.update(); // Account for initial contents
+    }
+
+    calculate() {
+        let text = this.quill.getText();
+        if (this.options.unit === "word") {
+            text = text.trim();
+            // Splitting empty text returns a non-empty array
+            return text.length > 0 ? text.split(/\s+/).length : 0;
+        } else {
+            return text.length;
+        }
+    }
+
+    update() {
+        var length = this.calculate();
+        var label = this.options.unit;
+        if (length !== 1) {
+            label += "s";
+        }
+        numWords = length;
+        // this.container.innerText = length + " " + label;
+    }
+}
+
+Quill.register("modules/counter", Counter);
 
 // problem: when multiple images are uploaded, the order of the images is not the same as the order of the divs
 function handleDeleteDivs(url) {
@@ -51,6 +86,7 @@ function handleDeleteDivs(url) {
 const imageHandler = async () => {
     const quill = quillRef.current.getEditor();
     const input = document.createElement("input");
+    console.log(input.value);
     // take the image from the input
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
@@ -65,14 +101,15 @@ const imageHandler = async () => {
         let range = quill.getSelection();
         let delta = quill.insertEmbed(
             range.index,
-            "div",
+            "CustomDiv",
             "<div></div>",
             Quill.sources.USER
         );
 
         quill.setSelection(range.index + 1);
 
-        let uri = await uploadImage2({
+        await new Promise((r) => setTimeout(r, 12000));
+        let uri = await uploadImage({
             file,
             setError,
             setIsLoading: setLoading,
@@ -111,6 +148,10 @@ const modules = {
         ],
         shouldUpdate: () => false, // toolbar should not be re-rendered again and again when the content changes
     },
+    counter: {
+        // container: "#counter",
+        unit: "word",
+    },
 };
 
 hljs.configure({
@@ -118,6 +159,7 @@ hljs.configure({
     languages: ["javascript", "ruby", "python"],
 });
 let quillRef = null;
+let numWords = 0;
 let [error, setError] = [null, null];
 let [loading, setLoading] = [null, null];
 
@@ -151,4 +193,4 @@ const Editor = ({ setContent }) => {
     );
 };
 
-export default Editor;
+export { Editor, numWords };

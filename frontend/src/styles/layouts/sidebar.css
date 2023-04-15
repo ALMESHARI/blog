@@ -18,6 +18,7 @@
     top: 0;
     left: 0;
     z-index: 5;
+    border: 0;
     border-right: var(--border);
 }
 
@@ -75,7 +76,7 @@ cursor: pointer;
 color: var(--text-color-grey);
 position: absolute;
 top: 13px;
-left: 22px;
+left: 12px;
 cursor: pointer;
 width: 35px;
 height: 30px;
@@ -99,6 +100,10 @@ display: none;
 }
 .desktop-menu:hover,.mobile-menu:hover{
     color: white;
+}
+
+.css-16jkw2k>.ps-menu-button{
+    padding-left: 12px !important;
 }
 
 @media screen and (max-width: 580px) {

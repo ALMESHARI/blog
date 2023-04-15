@@ -43,10 +43,14 @@ async function uploadBlog({
     data,
     setLoading,
     setError,
-}){
+    successCallback=null
+}) {
+    await new Promise((r) => setTimeout(r, 5000));
+
     const abortCont = new AbortController();
     // recieve headers from server
     try {
+        setLoading(true);
         const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -59,6 +63,7 @@ async function uploadBlog({
         if (!res.ok){
             setError(resData.error);
         }
+
         setLoading(false);
         // error from network
     } catch (err) {
@@ -66,7 +71,7 @@ async function uploadBlog({
             console.log("upload aborted");
         } else {
             setLoading(false);
-            setError("Could not upload the data");
+            setError(`Could not upload the data ${err.message}`);
         }
     }
     return () => abortCont.abort();

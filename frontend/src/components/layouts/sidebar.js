@@ -38,10 +38,11 @@ const SideBar = forwardRef(({ Icon, setIcon , isOpen, setIsOpen }, ref) => {
         
 
             <Sidebar
-                collapsedWidth={width < 580 ? "0px" : "80px"}
+                collapsedWidth={width < 580 ? "0px" : "60px"}
                 id="sidebar"
                 defaultCollapsed={true}
-                style={{ height: "100vh" }}
+            style={{ height: "100vh" }}
+            
             >
                 <div
                     className="desktop-menu"

@@ -1,13 +1,15 @@
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
+import "../styles/pages/Blog.css";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../services/useFetch";
+import { toFormattedDate } from "../logic/date";
 
-function Blog(writer) {
+function Blog() {
     const { id } = useParams();
-    const { data: blog, error, isLoading } = useFetch(`/api/blogs/blog/${id}`);
+    const { data, error, isLoading } = useFetch(`/api/blogs/blog/${id}`);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -16,27 +18,36 @@ function Blog(writer) {
     if (error) {
         return <div>Error: {error}</div>;
     }
+    const { blog, writer } = { ...data };
     return (
         <div className="Blog">
             {/* writer section */}
+            {/* those styles can be found in blog summary */}
             <div className="micro-writer">
                 <img
                     className="writer-picture"
-                    src={writer.picture}
-                    alt={writer.name}
+                    src={writer.avatar}
+                    alt={writer.firstName}
                 />
                 <div className="writer-divider">
-                    <h5 className="writer-name">{writer.name}</h5>
+                    <h5 className="writer-name">
+                        {writer.firstName} {writer.lastName}
+                    </h5>
                     <div className="blog-information">
-                        <h5 className="blog-date">{`${blog.publishDate.month} ${blog.publishDate.day}`}</h5>
+                        <h5 className="blog-date">
+                            {toFormattedDate(blog.publishDate)}
+                        </h5>
+                        <h5 className="blog-minutes">{blog.minutes} min read </h5>
                         <h5 className="blog-tag">{blog.tag}</h5>
                     </div>
                 </div>
             </div>
             {/* blog header section */}
             <div className="ql-snow">
-                <h2 className="blog-title">{blog.title}</h2>
-                <img src={blog.mainImage} alt="image" />
+                <h1 className="">{blog.title}</h1>
+                <h4 className="blog-description">{blog.description}</h4>
+
+                <img className="main-image" src={blog.mainImage} alt="image" />
                 <div className="ql-snow"></div>
 
                 {/* blog body section */}
@@ -54,5 +65,6 @@ function Blog(writer) {
         </div>
     );
 }
+
 
 export default Blog;

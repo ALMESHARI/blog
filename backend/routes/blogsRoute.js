@@ -4,21 +4,22 @@ import {
     createNewTag,
     deleteBlog,
     getBlog,
+    getBlogWithWriter,
     returnBlogsByDate,
+    getAllBlogs,
     returnBlogsByTag,
     returnTagNames,
     returnWriterBlogs,
-    updateBlog
+    updateBlog,
 } from "../controllers/blogController.js";
-
 
 const router = Express.Router();
 
 // get blog
-router.get('/blog/:blogID', getBlog)
+router.get("/blog/:blogID", getBlogWithWriter);
 
 // all the blogs
-router.get("/", returnBlogsByDate);
+router.get("/", getAllBlogs);
 
 // return blogs tags
 router.get("/tag", returnTagNames);
@@ -33,11 +34,10 @@ router.post("/tag/newTag", createNewTag);
 router.get("/@:writerID/", returnWriterBlogs);
 
 // delete blog
-router.delete('/delete/:blogID', deleteBlog)
+router.delete("/delete/:blogID", deleteBlog);
 
 // update blog
-router.put('/update/:blogID', updateBlog)
-
+router.put("/update/:blogID", updateBlog);
 
 router.post("/newBlog", createBlog);
 

@@ -1,7 +1,7 @@
 const writer = {
     name: "Ridha almeshari",
     picture: "https://i.ytimg.com/vi/rRZ-IxZ46ng/sddefault.jpg",
-    id: "6436eca556690801e7defdea",
+    id: "643a3379b095c6b9c5190c6b",
 };
 
 const blog = {
@@ -56,7 +56,7 @@ const travelGuide = {
     minutes: "15 min",
     title: "The Ultimate Guide to Exploring Europe on a Budget",
     description:
-        "This travel guide provides tips and tricks for exploring Europe on a budget. It covers topics such as affordable accommodations, budget-friendly activities, and cheap eats.",
+        "This travel guide provides tips ",
     picture:
         "https://images.squarespace-cdn.com/content/v1/5b0eb59df793928fa7f488ff/1536780543743-TZT0SJMRKV5LUOOY8FS0/Industryyyy.jpg",
     writer: {
@@ -72,7 +72,7 @@ const event = {
     minutes: "120 min",
     title: "Concert in the Park",
     description:
-        "This event is a free concert in the park featuring local musicians. Bring a picnic and enjoy the music with friends and family.",
+        "This event is a free concert in the park",
     picture:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Halleyparknovember.jpg/1200px-Halleyparknovember.jpg",
     writer: {

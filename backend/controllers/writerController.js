@@ -38,12 +38,13 @@ const getWriter = async (req, res) => {
 };
 
 async function createWriter(req, res) {
-    const { username, password, firstName, lastName, email } = req.body;
+    const data = req.body;
+    console.log(data)
     try {
         // check whether the username or the email is exists in DB
         const [reapetedUsername, reapetedEmail] = await Promise.all([
-            Writer.findOne({ username: username }),
-            Writer.findOne({ email: email }),
+            Writer.findOne({ username: data.username }),
+            Writer.findOne({ email: data.email }),
         ]);
         // if it is not reapeted then create the user
         if (reapetedUsername) {
@@ -53,13 +54,8 @@ async function createWriter(req, res) {
         }
         // if not, add the writer to the database
         else {
-            const writer = await Writer.create({
-                username,
-                password,
-                firstName,
-                lastName,
-                email,
-            });
+            const writer = await Writer.create(
+                data);
             res.status(200).json(writer);
         }
     } catch (error) {

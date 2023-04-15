@@ -1,6 +1,6 @@
 @import "./styles/GlobalVariables.css";
 @import "./styles/components/loading.css";
-
+@import "./styles/layouts/side-div.css";
 *{
     box-sizing: border-box;
     margin: 0;
@@ -16,9 +16,16 @@ body {
     -moz-osx-font-smoothing: grayscale;
     position: relative;
     background-color: var(--bg-secondary-color);
+color: var(--text-color1);
 }
 
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+color: var(--text-color1);}
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -35,16 +42,21 @@ code {
     padding-top: 56px;
     overflow: clip;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
 }
 
 .pages > div{
     padding: 10px;
+    max-width: 1280px;
+    width:inherit;
 }
 /* it might be a problem with justify center */
 .flexCenter{
     display: flex;
     /* justify-content: center; */
-    align-items: center;
     height: fit-content;
     width: 100%;
     overflow-x: auto;
@@ -55,10 +67,14 @@ a{
 }
 
 img {
-    max-width: 500px;
+    max-width: 330px;
 }
 
-
+.mobile-menu svg{
+    /* color: white; */
+    height: 28px;
+    width: 28px;
+}
 
 
 

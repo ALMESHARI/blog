@@ -1,10 +1,12 @@
-import Editor from "../components/Editor";
+import { Editor, numWords } from "../components/Editor";
 import { getDate } from "../logic/date";
 import { useState } from "react";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import ImageUpload from "../components/imageUploader";
 import "../styles/pages/WriteNew.css";
 import uploadBlog from "../services/uploadBlog";
+import { useNavigate } from "react-router-dom";
+
 
 const WriteNew = ({ writer }) => {
     const date = getDate();
@@ -16,21 +18,22 @@ const WriteNew = ({ writer }) => {
     const [loading, setLoading] = useState(false);
     const [mainImageURL, setMainImageURL] = useState(null);
 
+    const navigate = useNavigate();
+
     const inputHandler = (e, hook) => {
         hook(e.target.value);
-        console.log(e.target.value);
     };
-    console.log(content);
 
-    if (error) {
-        notifyError(error);
-    }
+    
 
     const notifyError = (error) => {
         alert(error);
     };
 
-    console.log("render");
+     if (error) {
+         notifyError(error);
+     }
+
 
     return (
         <div className="WriteNew">
@@ -79,6 +82,8 @@ const WriteNew = ({ writer }) => {
                 setLoading={setLoading}
             />
 
+            <div id="counter">{numWords}</div>
+
             <Editor setContent={setContent} />
 
             <div
@@ -96,7 +101,7 @@ const WriteNew = ({ writer }) => {
                 <button
                     id="publish-btn"
                     className="gb-button-style"
-                    onClick={() => {
+                    onClick={async () =>  {
                         if (!title || !description || !content) {
                             notifyError("Please fill all the fields");
                         } else if (!mainImageURL) {
@@ -116,14 +121,20 @@ const WriteNew = ({ writer }) => {
                                     writerID: writer.id,
                                     status: "published",
                                     publishDate: new Date(),
+                                    minutes: parseInt(numWords/250)
                                 };
                                 let url = "api/blogs/newBlog";
-                                uploadBlog({
+                                setLoading(true);
+                                await uploadBlog({
                                     url,
                                     data,
                                     setLoading,
                                     setError,
                                 });
+                                console.log('gg', error, loading)
+                                if (!error && !loading) {
+                                    navigate("/explore");
+                                }
                             }
                         }
                     }}
@@ -135,4 +146,5 @@ const WriteNew = ({ writer }) => {
         </div>
     );
 };
+
 export default WriteNew;

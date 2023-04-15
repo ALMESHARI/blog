@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 import Blog from "../models/blogModel.js";
 import Tag from "../models/tagsModel.js";
 
-
-// get blog by id 
+// get only blog by id
 const getBlog = async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.blogID)) {
@@ -11,7 +10,10 @@ const getBlog = async (req, res) => {
                 error: "no such blog",
             });
         }
-        const blog = await Blog.findOne({ _id: req.params.blogID }, {...req.body});
+        const blog = await Blog.findOne(
+            { _id: req.params.blogID },
+            { ...req.body }
+        );
         if (!blog) {
             return res.status(404).json({ error: "no such a blog" });
         }
@@ -21,19 +23,67 @@ const getBlog = async (req, res) => {
     }
 };
 
+// blog with writer 
+const getBlogWithWriter = async (req, res) => {
+    const blogId = req.params.blogID;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(blogId)) {
+            return res.status(404).json({
+                error: "no such blog",
+            });
+        }
+        const blog = await Blog.findById(blogId).populate({
+            path: "writerID",
+            model: "writer",
+            select: "firstName lastName avatar",
+        });
+
+        if (!blog) {
+            // handle case where blog is not found
+            return res.status(404).json({ error: "no such a blog" });
+        }
+        const writer = {
+            writerID: blog.writerID._id,
+            firstName: blog.writerID.firstName,
+            lastName: blog.writerID.lastName,
+            avatar: blog.writerID.avatar,
+        };
+        blog.writerID = "";
+
+        res.status(200).json({ blog, writer });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// blog summaries 
+const getAllBlogs = async (req, res) => {
+    try {
+        const blogs = await Blog.find(
+            {},
+            "title description mainImage tag publishDate minutes writerID"
+        ).populate({
+            path: "writerID",
+            model: "writer",
+            select: "firstName lastName avatar",
+        });
+        if (!blogs) {
+            // handle case where there are no any blogs 
+            return res.status(404).json({ error: "no blog found" });
+        }
+
+        res.status(200).json({ blogs });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 // create a new blog
 const createBlog = async (req, res) => {
-    const { title, description, body, writerID, tag, mainImage, status, publishDate } = req.body;
+    const data = req.body;
     try {
         const blog = await Blog.create({
-            title,
-            description,
-            body,
-            mainImage,
-            tag,
-            writerID,
-            status,
-            publishDate,
+            ...data,
         });
         res.status(200).json(blog);
     } catch (error) {
@@ -102,7 +152,7 @@ const createNewTag = async (req, res) => {
         const tag = await Tag.findOne({ tagName: req.body.tagName });
         if (!tag) {
             const newTag = await Tag.create({ tagName: req.body.tagName });
-           return res.status(200).json(newTag);
+            return res.status(200).json(newTag);
         } else {
             res.status(409).json({ error: "the tag name is already exists" });
         }
@@ -136,7 +186,10 @@ const updateBlog = async (req, res) => {
                 error: "no such blog",
             });
         }
-        const blog = await Blog.findOneAndUpdate({ _id: req.params.blogID }, {...req.body});
+        const blog = await Blog.findOneAndUpdate(
+            { _id: req.params.blogID },
+            { ...req.body }
+        );
         if (!blog) {
             return res.status(404).json({ error: "no such a blog" });
         }
@@ -145,7 +198,6 @@ const updateBlog = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-
 
 export {
     createBlog,
@@ -156,5 +208,7 @@ export {
     returnWriterBlogs,
     deleteBlog,
     getBlog,
-    updateBlog
+    getBlogWithWriter,
+    getAllBlogs,
+    updateBlog,
 };

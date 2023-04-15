@@ -1,7 +1,7 @@
                 #theme-btn {
                     height: 26px;
                     min-width: 26px;
-                    border: var(--border);
+                    border: 2px solid;
                     border-radius: 50%;
                     display: flex;
                     align-items: center;
@@ -9,6 +9,7 @@
                     cursor: pointer;
                     
                 }
+                
 
                 #theme-btn:hover {
                     transform: rotate(180deg);

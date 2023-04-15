@@ -36,6 +36,10 @@ const blogSchema = new Schema(
             type: String,
             required: true,
         },
+        minutes: {
+            type: Number,
+            required:true
+        }
     },
 
     { timestamps: true }

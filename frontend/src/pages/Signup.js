@@ -1,9 +1,10 @@
 import ImageUpload from "../components/imageUploader";
 import "../styles/pages/Signup.css";
 import { useState, useEffect } from "react";
-import { ReactComponent as AvatarSVG } from '../images/account-avatar.svg';
-
-
+import { ReactComponent as AvatarSVG } from "../images/account-avatar.svg";
+import { ModalContext } from "../context/ModalContext";
+import { useContext } from "react";
+import uploadData from "../services/uploadData";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -17,28 +18,79 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
     const [showLoginForm, setShowLoginForm] = useState(false);
 
+    const modalContext = useContext(ModalContext);
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!email || !password || !confirmPassword || !firstName || !lastName || !username) {
+        // for signup only
+        if (!showLoginForm) {
+            if (!confirmPassword || !firstName || !lastName || !email) {
+                setError("Please fill out all fields");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                setError("Passwords do not match");
+                return;
+            }
+
+            if (!ValidateEmail(email)) {
+                setError("Please enter a valid email address");
+                return;
+            }
+        }
+        // for both signup and login form
+        if (!username || !password) {
             setError("Please fill out all fields");
             return;
         }
 
-        if (!ValidateEmail(email)) {
-            setError("Please enter a valid email address");
+        if (loading) {
+            setError("please wait until uploading avatar is done");
             return;
         }
 
-        if (password !== confirmPassword) {
-            setError("Passwords do not match");
-            return;
-        }
-        if (loading) {
-            setError("please wait until uploading avatar is done")
-            return;
+        if (showLoginForm) {
+            uploadData({
+                url: "/api/writers/login",
+                data: { username, password },
+                modalContext,
+                setLoading,
+                setError,
+            });
+        } else {
+            uploadData({
+                url: "/api/writers/login",
+                data: {
+                    username,
+                    password,
+                    firstName,
+                    lastName,
+                    email,
+                    avatarUrl,
+                },
+                modalContext,
+                setLoading,
+                setError,
+            });
         }
         // Handle sign-up form submission here
-        console.log("email: ", email, "password: ", password, "confirmPassword: ", confirmPassword, "firstName: ", firstName, "lastName: ", lastName, "username: ", username, "avatarUrl: ", avatarUrl);
+        console.log(
+            "email: ",
+            email,
+            "password: ",
+            password,
+            "confirmPassword: ",
+            confirmPassword,
+            "firstName: ",
+            firstName,
+            "lastName: ",
+            lastName,
+            "username: ",
+            username,
+            "avatarUrl: ",
+            avatarUrl
+        );
     };
 
     const handleSwitchToLogin = () => {
@@ -156,9 +208,19 @@ const Signup = () => {
                 </p>
 
                 <div className="error-div">
-                    {error && <p className="error-message">{error}</p>}
+                    {error && (
+                        <p
+                            className="error-message"
+                            style={{
+                                color: "red",
+                                marginTop: "10px",
+                            }}
+                        >
+                            {error}
+                        </p>
+                    )}
                 </div>
-                
+
                 <button
                     className="gb-button-style"
                     type="submit"
@@ -171,13 +233,8 @@ const Signup = () => {
     );
 };
 
-
 function ValidateEmail(mail) {
-    if (
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-            mail
-        )
-    ) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
         return true;
     }
     alert("You have entered an invalid email address!");

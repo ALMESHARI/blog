@@ -19,28 +19,36 @@ import { useState, useRef } from "react";
 import UpBar from "./components/layouts/up-bar";
 import Footer from "./components/layouts/footer";
 import Bars from "./components/layouts/Bars";
+// export contexts
+import { ModalProvider } from "./context/ModalContext";
+import Modal from "./components/Modal";
+import  Backdrop  from "./components/Backdrop";
 
 function App() {
     return (
         <div id="App" style={({ height: "100vh" }, { display: "flex" })}>
             <BrowserRouter>
-                <Bars />
-                <div className="pages">
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/Myblogs" element={<Myblogs />} />
-                        <Route
-                            path="/WriteNew"
-                            element={<WriteNew writer={writer} />}
-                        />
-                        <Route path="/Explore" element={<Explore />} />
-                        <Route path="/Profile" element={<Profile />} />
-                        <Route path="/Settings" element={<Settings />} />
-                        <Route path="/Signup" element={<Signup />} />
-                        <Route path="/Blog/:id" element={<Blog />} />
-                    </Routes>
-                    {/* <Footer /> */}
-                </div>
+                <ModalProvider>
+                    <Bars />
+                    <div className="pages">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/Myblogs" element={<Myblogs />} />
+                            <Route
+                                path="/WriteNew"
+                                element={<WriteNew writer={writer} />}
+                            />
+                            <Route path="/Explore" element={<Explore />} />
+                            <Route path="/Profile" element={<Profile />} />
+                            <Route path="/Settings" element={<Settings />} />
+                            <Route path="/Signup" element={<Signup />} />
+                            <Route path="/Blog/:id" element={<Blog />} />
+                        </Routes>
+                        {/* <Footer /> */}
+                    </div>
+                    <Modal />
+                    {/* <Backdrop /> */}
+                </ModalProvider>
             </BrowserRouter>
         </div>
     );

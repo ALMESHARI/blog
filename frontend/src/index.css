@@ -1,6 +1,7 @@
 @import "./styles/GlobalVariables.css";
 @import "./styles/components/loading.css";
 @import "./styles/layouts/side-div.css";
+@import "./styles/components/modal.css";
 *{
     box-sizing: border-box;
     margin: 0;

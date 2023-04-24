@@ -31,7 +31,6 @@ const SideBar = forwardRef(({ Icon, setIcon, isOpen, setIsOpen }, ref) => {
             icon: NotificationsNoneOutlinedIcon,
         },
         { name: "Settings", link: "Settings", icon: SettingsOutlinedIcon },
-        { name: "Sign up", link: "Signup", icon: HelpOutlineOutlinedIcon },
     ];
     return (
         <Sidebar

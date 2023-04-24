@@ -1,11 +1,13 @@
 import { Editor, numWords } from "../components/Editor";
 import { getDate } from "../logic/date";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import ImageUpload from "../components/imageUploader";
 import "../styles/pages/WriteNew.css";
-import uploadBlog from "../services/uploadBlog";
+import uploadData from "../services/uploadData";
 import { useNavigate } from "react-router-dom";
+import { ModalContext } from "../context/ModalContext";
+
 
 
 const WriteNew = ({ writer }) => {
@@ -17,7 +19,9 @@ const WriteNew = ({ writer }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [mainImageURL, setMainImageURL] = useState(null);
+    const modalContext = useContext(ModalContext);
 
+    
     const navigate = useNavigate();
 
     const inputHandler = (e, hook) => {
@@ -126,11 +130,12 @@ const WriteNew = ({ writer }) => {
                                     };
                                     let url = "api/blogs/newBlog";
                                     setLoading(true);
-                                    await uploadBlog({
+                                    await uploadData({
                                         url,
                                         data,
                                         setLoading,
                                         setError,
+                                        modalContext
                                     });
                                     console.log("gg", error, loading);
                                     if (!error && !loading) {

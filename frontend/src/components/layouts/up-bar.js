@@ -6,16 +6,27 @@ const UpBar = () => {
 
     return (
         <div className="up-bar" style={style}>
-            <div style={{
-                width: "26px",
-                height: "26px",
-            }}></div>
-            <h3 style={{color:"unset"
-            }}><i><span style={{
-                color: "grey",
-                textDecoration: "italic",
-            }}>M</span></i>odawan</h3>
-            <ThemeBtn/>
+            <div
+                style={{
+                    width: "26px",
+                    height: "26px",
+                }}
+            ></div>
+
+            <h3 style={{ color: "unset" }}>
+                <i>
+                    <span
+                        style={{
+                            color: "grey",
+                            textDecoration: "italic",
+                        }}
+                    >
+                        M
+                    </span>
+                </i>
+                odawan
+            </h3>
+            <ThemeBtn />
         </div>
     );
 };

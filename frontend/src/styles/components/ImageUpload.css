@@ -12,12 +12,18 @@
     overflow: hidden;
 }
 
+.image-upload form{
+    height: 100%;
+    width: 100%;
+}
+
 .upload-label {
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    height: 100%;
 }
 
 .preview-image {
@@ -32,6 +38,7 @@
     justify-content: center;
     flex-direction: column;
     color: #ccc;
+    padding: 20px;
 }
 
 .upload-placeholder i {

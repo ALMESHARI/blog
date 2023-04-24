@@ -45,7 +45,7 @@ async function uploadBlog({
     setError,
     successCallback=null
 }) {
-    await new Promise((r) => setTimeout(r, 5000));
+    // await new Promise((r) => setTimeout(r, 5000));
 
     const abortCont = new AbortController();
     // recieve headers from server

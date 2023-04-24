@@ -108,7 +108,7 @@ const imageHandler = async () => {
 
         quill.setSelection(range.index + 1);
 
-        await new Promise((r) => setTimeout(r, 12000));
+        // await new Promise((r) => setTimeout(r, 12000));
         let uri = await uploadImage({
             file,
             setError,

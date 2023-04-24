@@ -43,9 +43,9 @@ function Blog() {
                 </div>
             </div>
             {/* blog header section */}
-            <div className="ql-snow">
+            <div className="ql-snow blog-wrapper">
                 <h1 className="">{blog.title}</h1>
-                <h4 className="blog-description">{blog.description}</h4>
+                <h4 className="description">{blog.description}</h4>
 
                 <img className="main-image" src={blog.mainImage} alt="image" />
                 <div className="ql-snow"></div>

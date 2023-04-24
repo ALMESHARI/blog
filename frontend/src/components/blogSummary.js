@@ -41,7 +41,7 @@ const BlogSummary = ({ writer, blog }) => {
             </div>
             <div className="blog-picture">
                 <img
-                    src={blog.mainImage}
+                    src={`${blog.mainImage}/medium`}
                     alt=""
                     onClick={() => {
                         navigate(`/Blog/${blog._id}`);

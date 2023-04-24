@@ -12,7 +12,6 @@ const writerSchema = new Schema(
         password: {
             type: String,
             required: true,
-            select:false
         },
         firstName: {
             type: String,

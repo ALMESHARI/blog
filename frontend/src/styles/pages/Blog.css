@@ -1,4 +1,35 @@
-.Blog .main-image{
-    width: 100%;
+.Blog .blog-wrapper img{
     max-width: 800px;
+}
+
+.Blog{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Blog .micro-writer img{
+    height: 45px;
+    width: 45px;
+}
+
+.blog-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blog-wrapper .description{
+    color: rgb(139, 139, 139);
+    font-weight: 400;
+    font-size: 1.0em;
+    line-height: 1.3;
+}
+
+.blog-wrapper .blog-content{
+    padding: 0;
+}
+
+.blog-wrapper .main-image{
+    align-self: center;
 }

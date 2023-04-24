@@ -1,3 +1,8 @@
+.WriteNew-wrapper{
+    display: flex;
+    
+}
+
 .WriteNew{
     display: flex;
     flex-direction: column;

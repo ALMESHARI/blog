@@ -14,9 +14,9 @@
     border-radius: 10px;
     padding: 5px 9px;
     gap: 10px;
-    margin-top: 10px;
+    margin-bottom: 10px;
     min-width: 240px;
-    max-width: 770px;
+    /* max-width: 770px; */
     /* height: ; */
     align-content: space-around;
     align-items: stretch;

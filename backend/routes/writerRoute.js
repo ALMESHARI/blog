@@ -1,10 +1,13 @@
 import Express from "express";
-import { createWriter, deleteWriter, getWriter, returnTopWriters, updateWriter } from "../controllers/writerController.js";
+import { login, createWriter, deleteWriter, getWriter, returnTopWriters, updateWriter } from "../controllers/writerController.js";
 
 const router = Express.Router();
 
 // create a new account
-router.post('/newAccount', createWriter)
+router.post('/signup', createWriter)
+
+// login
+router.post('/login', login)
 
 // return famous writers
 router.get("/", returnTopWriters);

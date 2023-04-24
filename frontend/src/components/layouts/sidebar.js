@@ -14,7 +14,7 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
-const SideBar = forwardRef(({ Icon, setIcon , isOpen, setIsOpen }, ref) => {
+const SideBar = forwardRef(({ Icon, setIcon, isOpen, setIsOpen }, ref) => {
     useImperativeHandle(ref, () => ({
         collapse,
     }));
@@ -33,59 +33,76 @@ const SideBar = forwardRef(({ Icon, setIcon , isOpen, setIsOpen }, ref) => {
         { name: "Settings", link: "Settings", icon: SettingsOutlinedIcon },
         { name: "Sign up", link: "Signup", icon: HelpOutlineOutlinedIcon },
     ];
-    console.log();
     return (
-        
-
-            <Sidebar
-                collapsedWidth={width < 580 ? "0px" : "60px"}
-                id="sidebar"
-                defaultCollapsed={true}
+        <Sidebar
+            collapsedWidth={width < 580 ? "0px" : "60px"}
+            id="sidebar"
+            defaultCollapsed={true}
             style={{ height: "100vh" }}
-            
+        >
+            <div
+                className="desktop-menu"
+                onClick={() => {
+                    collapse(setIcon);
+                }}
             >
+                {<Icon />}
+            </div>
+
+            <Menu>
+                <MenuItem style={{ textAlign: "right" }}></MenuItem>
+
                 <div
-                    className="desktop-menu"
-                    onClick={() => {
-                        collapse(setIcon);
-                    }}
+                    className={
+                        isOpen ? "micro-profile" : "micro-profile closed"
+                    }
                 >
-                    {<Icon />}
+                    <div className="personal-img-div">
+                        <img
+                            src="https://lumiere-a.akamaihd.net/v1/images/character_themuppets_kermit_b77a431b.jpeg"
+                            alt=""
+                        />
+                    </div>
+                    <h3 className="ps-menuitem-root">RIDHA ALMESHARI</h3>
                 </div>
 
-                <Menu>
-                    <MenuItem style={{ textAlign: "right" }}></MenuItem>
-
-                    <div
-                        className={
-                            isOpen ? "micro-profile" : "micro-profile closed"
-                        }
+                <hr />
+                {/* for each menu item */}
+                {menus.map((menuItem) => (
+                    <MenuItem
+                        key={menuItem.link}
+                        component={<Link to={menuItem.link} />}
+                        className="createItem"
+                        icon={<menuItem.icon />}
+                        onClick={() => collapse(setIcon, "close")}
                     >
-                        <div className="personal-img-div">
-                            <img
-                                src="https://lumiere-a.akamaihd.net/v1/images/character_themuppets_kermit_b77a431b.jpeg"
-                                alt=""
-                            />
-                        </div>
-                        <h3 className="ps-menuitem-root">RIDHA ALMESHARI</h3>
-                    </div>
-
-                    <hr />
-                    {/* for each menu item */}
-                    {menus.map((menuItem) => (
-                        <MenuItem
-                            key={menuItem.link}
-                            component={<Link to={menuItem.link} />}
-                            className="createItem"
-                            icon={<menuItem.icon />}
-                        >
-                            {menuItem.name}
-                        </MenuItem>
-                    ))}
-                </Menu>
-            </Sidebar>
+                        {menuItem.name}
+                    </MenuItem>
+                ))}
+            </Menu>
+            {isOpen && (
+                <Link className="login-link" to="Signup">
+                    <button
+                        onClick={() => collapse(setIcon,"close")}
+                        className="bar-login gb-button-style"
+                    >
+                        LOGIN
+                    </button>
+                </Link>
+            )}
+        </Sidebar>
     );
-    function collapse(updateIcon) {
+    function collapse(updateIcon, action = "toggle") {
+        if (action === "close") {
+            if (isOpen) {
+                collapseSidebar();
+                updateIcon(MenuOutlinedIcon);
+                setIsOpen(false);
+            }
+
+            return;
+        }
+        // normal toggle
         collapseSidebar();
         if (isOpen) {
             updateIcon(MenuOutlinedIcon);

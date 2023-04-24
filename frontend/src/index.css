@@ -5,7 +5,7 @@
     box-sizing: border-box;
     margin: 0;
     outline: none;
-    transition: 0.3s;
+    transition: 0.1s;
 }
 body {
     margin: 0;
@@ -49,9 +49,10 @@ code {
 }
 
 .pages > div{
-    padding: 10px;
-    max-width: 1280px;
+    padding: 18px;
+    max-width: var(--safe-width);
     width:inherit;
+    justify-content: space-evenly;
 }
 /* it might be a problem with justify center */
 .flexCenter{
@@ -76,7 +77,36 @@ img {
     width: 28px;
 }
 
+pre {
+    background-color: #000 !important;
+}
 
+.login-link{
+        margin: auto 22px 32px 12px;
+}
+
+.bar-login {
+    width: 100%;
+    color: rgb(230, 230, 230);
+    border: solid 1px rgb(227, 227, 227);
+    display: block;
+}
+.fade-in{
+  animation: 1s fadeIn;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  }
+
+
+  @keyframes fadeIn {
+      99% {
+          visibility: hidden;
+      }
+
+      100% {
+          visibility: visible;
+      }
+  }
 
 /* placeholder style */
 

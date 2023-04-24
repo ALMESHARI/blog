@@ -5,12 +5,19 @@ import uploadImage2 from "../services/uploadImage";
 // if changed is true then the button is enabled
 // if it is not changed then it should not allows to reupload the image
 
-function ImageUpload({ setMainImageURL,error, setError, setLoading }) {
+function ImageUpload({
+    setMainImageURL,
+    error,
+    setError,
+    setLoading,
+    submitType = "button",
+    textInside = "Drag and drop or click to select main image",
+}) {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [changed, setChanged] = useState(true);
 
-    const handleFileSelect = (selectedFile) => {
+    const handleFileSelect = (event, selectedFile) => {
         if (!selectedFile) {
             return;
         }
@@ -20,10 +27,21 @@ function ImageUpload({ setMainImageURL,error, setError, setLoading }) {
         }
         setFile(selectedFile);
         setChanged(true);
+
         if (selectedFile) {
             const reader = new FileReader();
+
+            reader.onerror = (error) => {
+                setError(error)
+                // Handle error here
+            };
+
             reader.onload = () => {
                 setPreviewUrl(reader.result);
+
+                if (submitType === "auto") {
+                    handleSubmit(event,selectedFile);
+                }
             };
             reader.readAsDataURL(selectedFile);
         }
@@ -51,15 +69,17 @@ function ImageUpload({ setMainImageURL,error, setError, setLoading }) {
         handleFileSelect(selectedFile);
     };
 
-    const handleSubmit = async (event) => {
+    // pass file when use auto submiting only 
+    const handleSubmit = async (event, autoSubmitFile = null) => {
         event.preventDefault();
         if (!changed) return;
-        if (!file) {
+        if (!file && !autoSubmitFile) {
             alert("Please select an image file");
             return;
         }
-        let url =  await uploadImage2({
-            file,
+
+        let url = await uploadImage2({
+            file: autoSubmitFile || file,
             setIsLoading: setLoading,
             apiURI: "/api/images/upload/main",
             setError,
@@ -68,7 +88,6 @@ function ImageUpload({ setMainImageURL,error, setError, setLoading }) {
             setChanged(false);
             setMainImageURL(url);
         }
-        
     };
 
     const submitting = async (file) => {
@@ -112,7 +131,7 @@ function ImageUpload({ setMainImageURL,error, setError, setLoading }) {
                             <div className="upload-placeholder">
                                 <i className="fas fa-cloud-upload-alt"></i>
                                 <div className="upload-text">
-                                    Drag and drop image here or click to upload
+                                    {textInside}
                                 </div>
                             </div>
                         )}
@@ -123,19 +142,19 @@ function ImageUpload({ setMainImageURL,error, setError, setLoading }) {
                         accept="image/*"
                         className="upload-input"
                         onChange={(event) => {
-                            handleFileSelect(event.target.files[0]);
+                            handleFileSelect(event, event.target.files[0]);
                         }}
                     />
                 </form>
             </div>
 
-            <button
+            { submitType != "auto" && <button
                 disabled={!changed || !file}
                 onClick={handleSubmit}
                 className="upload-button gb-button-style"
             >
                 {!changed && file ? "UPLOADED" : "UPLOAD"}
-            </button>
+            </button>}
         </div>
     );
 }

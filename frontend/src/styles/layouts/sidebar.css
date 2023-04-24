@@ -21,6 +21,10 @@
     border: 0;
     border-right: var(--border);
 }
+.ps-sidebar-container{
+    display: flex;
+    flex-direction: column;
+}
 
 .micro-profile{
 display: flex;
@@ -105,6 +109,8 @@ display: none;
 .css-16jkw2k>.ps-menu-button{
     padding-left: 12px !important;
 }
+
+
 
 @media screen and (max-width: 580px) {
     #sidebar{

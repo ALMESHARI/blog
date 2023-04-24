@@ -3,8 +3,8 @@
     height: fit-content;
     position: sticky;
     top: 56px;
-    min-width: 320px;
-    max-width: 320px;
+    min-width: 370px;
+    max-width: 370px;
     display: flex;
     border: var(--border);
     min-height: calc(100vh - 100px);
@@ -13,10 +13,11 @@
     border-radius: 15px;
     align-items: center;
     background-color: var(--input-color);
+    margin-left:15px
     
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1000px) {
     .side-div{
         display: none;
     }

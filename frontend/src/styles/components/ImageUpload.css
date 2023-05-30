@@ -10,6 +10,7 @@
     position: relative;
     align-content: center;
     overflow: hidden;
+    max-height: 370px;
 }
 
 .image-upload form{

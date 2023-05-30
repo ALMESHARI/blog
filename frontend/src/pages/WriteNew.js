@@ -8,8 +8,6 @@ import uploadData from "../services/uploadData";
 import { useNavigate } from "react-router-dom";
 import { ModalContext } from "../context/ModalContext";
 
-
-
 const WriteNew = ({ writer }) => {
     const date = getDate();
     const [title, setTitle] = useState("");
@@ -21,23 +19,19 @@ const WriteNew = ({ writer }) => {
     const [mainImageURL, setMainImageURL] = useState(null);
     const modalContext = useContext(ModalContext);
 
-    
     const navigate = useNavigate();
 
     const inputHandler = (e, hook) => {
         hook(e.target.value);
     };
 
-    
-
     const notifyError = (error) => {
         alert(error);
     };
 
-     if (error) {
-         notifyError(error);
-     }
-
+    if (error) {
+        notifyError(error);
+    }
 
     return (
         <div className="WriteNew-wrapper">
@@ -126,7 +120,10 @@ const WriteNew = ({ writer }) => {
                                         writerID: writer.id,
                                         status: "published",
                                         publishDate: new Date(),
-                                        minutes: parseInt(numWords / 250) > 0 ? parseInt(numWords / 250) : 1,
+                                        minutes:
+                                            parseInt(numWords / 250) > 0
+                                                ? parseInt(numWords / 250)
+                                                : 1,
                                     };
                                     let url = "api/blogs/newBlog";
                                     setLoading(true);
@@ -135,7 +132,7 @@ const WriteNew = ({ writer }) => {
                                         data,
                                         setLoading,
                                         setError,
-                                        modalContext
+                                        modalContext,
                                     });
                                     console.log("gg", error, loading);
                                     if (!error && !loading) {

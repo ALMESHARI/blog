@@ -33,4 +33,5 @@
 
 .blog-wrapper .main-image{
     align-self: center;
+    box-shadow: 1px 1px 16px 0px black;
 }

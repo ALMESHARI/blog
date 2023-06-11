@@ -7,7 +7,7 @@ const writerSchema = new Schema(
         username: {
             type: String,
             required: true,
-            unique:true
+            unique: true,
         },
         password: {
             type: String,
@@ -28,17 +28,16 @@ const writerSchema = new Schema(
         email: {
             type: String,
             required: true,
-            unique:true
+            unique: true,
         },
         status: {
             type: String,
-            default:"active"
+            default: "active",
         },
         points: {
             type: Number,
-            default:0
-        }
-        
+            default: 0,
+        },
     },
 
     { timestamps: true }

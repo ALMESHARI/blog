@@ -16,16 +16,16 @@ const login = async (req, res) => {
         if (!username || !password) {
             return res.status(400).json({ error: "please fill all the fields" });
         }
-        const user = await Writer.findOne({ username });
-        if (!user) {
+        const writer = await Writer.findOne({ username });
+        if (!writer) {
             return res.status(404).json({ error: "username is not correct" });
         }
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, writer.password);
         if (!isMatch) {
             return res.status(404).json({ error: "password is not correct" });
         }
-        const token = createToken(user._id);
-        return res.status(200).json({ user, token });
+        const token = createToken(writer._id);
+        return res.status(200).json({ writer, token });
     }
     catch (error) {
         res.status(400).json({ error: error.message });
@@ -54,6 +54,7 @@ const getWriter = async (req, res) => {
     }
 };
 
+// sign up writer
 const createWriter = async (req, res) => {
     const data = req.body;
     console.log(data)
@@ -89,9 +90,12 @@ const createWriter = async (req, res) => {
             // create the writer
             const writer = await Writer.create(
                 data);
+            // remove password from the response
+            const { password, ...writerNoPassowrd } = writer._doc;
+            console.log(writerNoPassowrd)
             // create the token
             const token = createToken(writer._id);
-            res.status(200).json({ writer, token });
+            res.status(200).json({ writer:writerNoPassowrd, token });
         }
     } catch (error) {
         res.status(400).json({ error: error.message });

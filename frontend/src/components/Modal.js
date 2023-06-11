@@ -23,7 +23,7 @@ const Modal = ({}) => {
         setTimeout(() => {
             closeModal();
             console.log("close modal");
-        }, 5000);
+        }, 3000);
     }
 
     return (

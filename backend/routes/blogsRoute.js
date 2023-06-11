@@ -39,6 +39,7 @@ router.delete("/delete/:blogID", deleteBlog);
 // update blog
 router.put("/update/:blogID", updateBlog);
 
+// create a new blog
 router.post("/newBlog", createBlog);
 
 export default router;

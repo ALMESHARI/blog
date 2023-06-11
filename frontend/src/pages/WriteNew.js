@@ -7,8 +7,11 @@ import "../styles/pages/WriteNew.css";
 import uploadData from "../services/uploadData";
 import { useNavigate } from "react-router-dom";
 import { ModalContext } from "../context/ModalContext";
+import avatarURL from "../images/avatar.png";
+import { AuthContext } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
-const WriteNew = ({ writer }) => {
+const WriteNew = () => {
     const date = getDate();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -18,6 +21,7 @@ const WriteNew = ({ writer }) => {
     const [loading, setLoading] = useState(false);
     const [mainImageURL, setMainImageURL] = useState(null);
     const modalContext = useContext(ModalContext);
+    const { state } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -33,17 +37,30 @@ const WriteNew = ({ writer }) => {
         notifyError(error);
     }
 
+    // if user is not authenticated
+    if (state.user === null) {
+        return (
+            <Navigate to="/signup" state={{ redirectedRoute: "/WriteNew" }} />
+        );
+    }
+    const writer = state.user.writer;
+    console.log(writer);
+
     return (
         <div className="WriteNew-wrapper">
             <div className="WriteNew">
                 <div className="micro-writer">
                     <img
                         className="writer-picture"
-                        src={writer.picture}
+                        src={
+                            writer.avatar === undefined
+                                ? avatarURL
+                                : writer.avatar
+                        }
                         alt={writer.name}
                     />
                     <div className="writer-divider">
-                        <h5 className="writer-name">{writer.name}</h5>
+                        <h5 className="writer-name">{`${writer.firstName} ${writer.lastName}`}</h5>
                         <div className="blog-information">
                             <h5 className="blog-date">{`${date.month} ${date.day}`}</h5>
                             <input
@@ -117,7 +134,7 @@ const WriteNew = ({ writer }) => {
                                         tag,
                                         body: content,
                                         mainImage: mainImageURL,
-                                        writerID: writer.id,
+                                        writerID: writer._id,
                                         status: "published",
                                         publishDate: new Date(),
                                         minutes:
@@ -134,7 +151,6 @@ const WriteNew = ({ writer }) => {
                                         setError,
                                         modalContext,
                                     });
-                                    console.log("gg", error, loading);
                                     if (!error && !loading) {
                                         navigate("/explore");
                                     }

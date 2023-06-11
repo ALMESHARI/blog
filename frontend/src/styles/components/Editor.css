@@ -41,8 +41,7 @@ color: var(--text-color1);
 
 
 
-.ql-tooltip.ql-editing {
-    /* z-index: ; */
+/* .ql-tooltip.ql-editing {
     left: 0 !important;
     bottom: 0 !important;
     top: unset !important;
@@ -51,6 +50,14 @@ color: var(--text-color1);
         background: var(--input-color);
         position: absolute !important;
         transform: unset !important;
+} */
+
+.ql-snow .ql-tooltip.ql-flip {
+    transform: translateY(60px) !important;
+}
+
+.ql-tooltip {
+    left: 0 !important;
 }
 
 .ql-tooltip.ql-hidden {

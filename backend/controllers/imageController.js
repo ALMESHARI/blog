@@ -1,6 +1,9 @@
 import Image from "../models/imageModel.js";
 import sharp from "sharp";
 
+/*
+@params
+*/
 async function uploadImageResolutions(req, res) {
   try {
     const file = req.file;

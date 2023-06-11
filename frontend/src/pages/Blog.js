@@ -1,7 +1,7 @@
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import "../styles/pages/Blog.css";
-
+import avatarURL from "../images/avatar.png";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../services/useFetch";
@@ -26,7 +26,9 @@ function Blog() {
             <div className="micro-writer">
                 <img
                     className="writer-picture"
-                    src={writer.avatar}
+                    src={
+                        writer.avatar === undefined ? avatarURL : writer.avatar
+                    }
                     alt={writer.firstName}
                 />
                 <div className="writer-divider">
@@ -37,7 +39,9 @@ function Blog() {
                         <h5 className="blog-date">
                             {toFormattedDate(blog.publishDate)}
                         </h5>
-                        <h5 className="blog-minutes">{blog.minutes} min read </h5>
+                        <h5 className="blog-minutes">
+                            {blog.minutes} min read{" "}
+                        </h5>
                         <h5 className="blog-tag">{blog.tag}</h5>
                     </div>
                 </div>

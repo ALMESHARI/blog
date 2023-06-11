@@ -1,10 +1,12 @@
 import ImageUpload from "../components/imageUploader";
 import "../styles/pages/Signup.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useHistory } from "react";
 import { ReactComponent as AvatarSVG } from "../images/account-avatar.svg";
 import { ModalContext } from "../context/ModalContext";
 import { useContext } from "react";
 import uploadData from "../services/uploadData";
+import { useAuthContext } from "../services/useAuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -17,6 +19,14 @@ const Signup = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [showLoginForm, setShowLoginForm] = useState(false);
+    const { state, dispatch } = useAuthContext();
+    const navigate = useNavigate();
+
+    // check the redirected route
+    const redirectedState = useLocation().state;
+    if (redirectedState) {
+        var { redirectedRoute } = redirectedState;
+    }
 
     const modalContext = useContext(ModalContext);
 
@@ -46,7 +56,7 @@ const Signup = () => {
         }
 
         if (loading) {
-            setError("please wait until uploading avatar is done");
+            setError("please wait...");
             return;
         }
 
@@ -57,43 +67,46 @@ const Signup = () => {
                 modalContext,
                 setLoading,
                 setError,
+                // TODO: handle login success
+                successCallback: authSuccessCallback,
             });
         } else {
             uploadData({
-                url: "/api/writers/login",
+                url: "/api/writers/signup",
                 data: {
                     username,
                     password,
                     firstName,
                     lastName,
                     email,
-                    avatarUrl,
+                    avatar:avatarUrl,
                 },
                 modalContext,
                 setLoading,
                 setError,
+                // TODO: handle signup success
+                successCallback: authSuccessCallback
             });
         }
-        // Handle sign-up form submission here
-        console.log(
-            "email: ",
-            email,
-            "password: ",
-            password,
-            "confirmPassword: ",
-            confirmPassword,
-            "firstName: ",
-            firstName,
-            "lastName: ",
-            lastName,
-            "username: ",
-            username,
-            "avatarUrl: ",
-            avatarUrl
-        );
     };
 
+    const authSuccessCallback = (resData) => {
+
+        // store the user in local storage
+        localStorage.setItem("user", JSON.stringify(resData));
+        // update the context
+        dispatch({ type: "LOGIN", payload: resData });
+        // redirect to explore page
+        if (redirectedRoute) {
+            navigate(redirectedRoute);
+        } else {
+            navigate("/explore");
+        }
+    }
+
+
     const handleSwitchToLogin = () => {
+        setError("");
         setShowLoginForm(!showLoginForm);
     };
 
@@ -237,7 +250,6 @@ function ValidateEmail(mail) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
         return true;
     }
-    alert("You have entered an invalid email address!");
     return false;
 }
 

@@ -1,19 +1,21 @@
 import "../styles/components/blogSummary.css";
 import { toFormattedDate } from "../logic/date";
 import { useNavigate } from "react-router-dom";
+import avatarURL from "../images/avatar.png";
 
 
 
 const BlogSummary = ({ writer, blog }) => {
     const navigate = useNavigate();
-
+    console.log(writer.avatar)
     return (
         <div className="blog-summary">
             <div className="blog-review">
                 <div className="micro-writer">
                     <img
                         className="writer-picture"
-                        src={writer.avatar}
+                        src={writer.avatar === undefined ? avatarURL : writer.avatar}
+                        
                         alt={writer.firstName}
                     />
                     <h5 className="writer-name">

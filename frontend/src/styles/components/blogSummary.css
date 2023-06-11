@@ -1,4 +1,5 @@
 .blogs{
+    width: 100%;
         max-width: 950px;
             min-width: 0;
 }

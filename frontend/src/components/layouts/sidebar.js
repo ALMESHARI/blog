@@ -13,25 +13,43 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import avatarURL from "../../images/avatar.png";
+
+// for auth
+import { useAuthContext } from "../../services/useAuthContext";
+
+
 
 const SideBar = forwardRef(({ Icon, setIcon, isOpen, setIsOpen }, ref) => {
     useImperativeHandle(ref, () => ({
         collapse,
     }));
+
     const { height, width } = useWindowDimensions();
+    // for auth
+    const { state, dispatch } = useAuthContext();
+    const isAuth = state.user !== null;
+    const writer = isAuth ? state.user.writer : null;
+    console.log(writer);
+    
+
+
     const { collapseSidebar } = useProSidebar();
     const menus = [
-        { name: "Explore", link: "Explore", icon: ExploreOutlinedIcon },
-        { name: "Write new", link: "WriteNew", icon: CreateIcon },
-        { name: "My Blogs", link: "MyBlogs", icon: DescriptionOutlinedIcon },
-        { name: "Profile", link: "Profile", icon: AccountCircleOutlinedIcon },
+        { name: "Explore", link: "Explore", icon: ExploreOutlinedIcon ,auth: false},
+        { name: "Write new", link: "WriteNew", icon: CreateIcon , auth: true},
+        { name: "My Blogs", link: "MyBlogs", icon: DescriptionOutlinedIcon , auth: true},
+        { name: "Profile", link: "Profile", icon: AccountCircleOutlinedIcon ,auth: true},
         {
             name: "Notifications",
             link: "Notifications",
             icon: NotificationsNoneOutlinedIcon,
+            auth: true,
         },
-        { name: "Settings", link: "Settings", icon: SettingsOutlinedIcon },
+        { name: "Settings", link: "Settings", icon: SettingsOutlinedIcon , auth: false},
     ];
+    // filter menus based on auth
+    const filteredMenus = menus.filter((menu) => !menu.auth || isAuth);
     return (
         <Sidebar
             collapsedWidth={width < 580 ? "0px" : "60px"}
@@ -50,24 +68,28 @@ const SideBar = forwardRef(({ Icon, setIcon, isOpen, setIsOpen }, ref) => {
 
             <Menu>
                 <MenuItem style={{ textAlign: "right" }}></MenuItem>
-
                 <div
                     className={
                         isOpen ? "micro-profile" : "micro-profile closed"
                     }
-                >
-                    <div className="personal-img-div">
-                        <img
-                            src="https://lumiere-a.akamaihd.net/v1/images/character_themuppets_kermit_b77a431b.jpeg"
-                            alt=""
-                        />
-                    </div>
-                    <h3 className="ps-menuitem-root">RIDHA ALMESHARI</h3>
+                > {isAuth && 
+                    (<div className="personal-img-div">
+                       
+                            <img
+                                src={
+                                    writer.avatar === undefined
+                                        ? avatarURL
+                                        : writer.avatar
+                                }
+                                alt={writer.firstName}
+                            />
+                        </div>)}
+                    
+                    {isAuth && <h3 className="ps-menuitem-root">{`${writer.firstName} ${writer.lastName}`}</h3>}
                 </div>
-
                 <hr />
                 {/* for each menu item */}
-                {menus.map((menuItem) => (
+                {filteredMenus.map((menuItem) => (
                     <MenuItem
                         key={menuItem.link}
                         component={<Link to={menuItem.link} />}
@@ -80,12 +102,20 @@ const SideBar = forwardRef(({ Icon, setIcon, isOpen, setIsOpen }, ref) => {
                 ))}
             </Menu>
             {isOpen && (
-                <Link className="login-link" to="Signup">
+                <Link
+                    className="login-link"
+                    to={state.user !== null ? "Explore" : "Signup"}
+                >
                     <button
-                        onClick={() => collapse(setIcon,"close")}
+                        onClick={() => {
+                            if (state.user !== null) {
+                                dispatch({ type: "LOGOUT" });
+                            }
+                            collapse(setIcon, "close");
+                        }}
                         className="bar-login gb-button-style"
                     >
-                        LOGIN
+                        {state.user === null ? "LOGIN" : "LOGOUT"}
                     </button>
                 </Link>
             )}

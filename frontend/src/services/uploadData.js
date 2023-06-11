@@ -16,7 +16,7 @@ const uploadData = async ({
     try {
         setLoading(true);
         openModal({ type: "Loading", content: `Uploading to ${url}...` });
-        await new Promise((r) => setTimeout(r, 15000));
+        // await new Promise((r) => setTimeout(r, 15000));
 
         const res = await fetch(
             url,
@@ -38,6 +38,9 @@ const uploadData = async ({
             openModal({ type: "Success", content: "Upload successful!" });
         }
         setLoading(false);
+        if (successCallback) {
+            successCallback(resData);
+        }
 
         // error from network
     } catch (err) {

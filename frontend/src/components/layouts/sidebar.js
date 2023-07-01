@@ -75,14 +75,10 @@ const SideBar = forwardRef(({ Icon, setIcon, isOpen, setIsOpen }, ref) => {
                 > {isAuth && 
                     (<div className="personal-img-div">
                        
-                            <img
-                                src={
-                                    writer.avatar === undefined
-                                        ? avatarURL
-                                        : writer.avatar
-                                }
-                                alt={writer.firstName}
-                            />
+                        { writer.avatar && (<img
+                            src={writer.avatar}
+                            alt={writer.firstName}
+                        />)}
                         </div>)}
                     
                     {isAuth && <h3 className="ps-menuitem-root">{`${writer.firstName} ${writer.lastName}`}</h3>}

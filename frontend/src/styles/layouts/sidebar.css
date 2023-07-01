@@ -62,6 +62,9 @@ cursor: pointer;
     border: solid 2px;
     border-color: var(--text-color-grey);
     cursor: pointer;
+    background-image: url('../../images/account-avatar.svg');
+        background-size: cover;
+        background-position: center;
 }
 .personal-img-div img{
     height: 100%;

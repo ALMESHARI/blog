@@ -98,6 +98,7 @@ const createWriter = async (req, res) => {
             res.status(200).json({ writer:writerNoPassowrd, token });
         }
     } catch (error) {
+        console.log(error.message)
         res.status(400).json({ error: error.message });
     }
 }
